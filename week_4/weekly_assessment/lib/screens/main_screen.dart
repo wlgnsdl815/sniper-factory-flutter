@@ -3,7 +3,11 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:secret_cat_sdk/api/api.dart';
 import 'package:weekly_assessment/const/colors.dart';
+import 'package:weekly_assessment/screens/first_screen.dart';
+import 'package:weekly_assessment/screens/second_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -13,12 +17,17 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  int _bottomNavIndex = 0;
   final TextEditingController _textEditingController = TextEditingController();
-  final PageController _pageController = PageController();
+  final RefreshController _refreshController = RefreshController();
+
+  int _bottomNavIndex = 0;
 
   @override
   Widget build(BuildContext context) {
+    List<Widget> screens = [
+      FirstScreen(),
+      SecondScreen(),
+    ];
     return Scaffold(
       drawer: Drawer(),
       appBar: AppBar(
@@ -33,6 +42,14 @@ class _MainScreenState extends State<MainScreen> {
           ),
         ),
       ),
+      body: FutureBuilder(
+          future: SecretCatApi.fetchSecrets(),
+          builder: (context, snapshot) {
+            return SmartRefresher(
+              controller: _refreshController,
+              child: screens[_bottomNavIndex],
+            );
+          }),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
         backgroundColor: primaryColor,
@@ -83,7 +100,12 @@ class _MainScreenState extends State<MainScreen> {
                     ),
                     SizedBox(height: 20),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        SecretCatApi.addSecret(_textEditingController.text);
+                        // 전송하고 나면 textController를 초기화
+                        _textEditingController.clear();
+                        Navigator.pop(context);
+                      },
                       style: ElevatedButton.styleFrom(
                           backgroundColor: primaryColor),
                       child: Text(

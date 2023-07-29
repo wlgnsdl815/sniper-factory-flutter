@@ -11,6 +11,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(
         fontFamily: 'Neo',
+        scaffoldBackgroundColor: Colors.grey[200],
       ),
       home: MainScreen(),
     );
