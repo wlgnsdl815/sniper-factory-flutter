@@ -22,12 +22,20 @@ class _MainScreenState extends State<MainScreen> {
 
   int _bottomNavIndex = 0;
 
+  void _onRefresh() async {
+    await Future.delayed(Duration(milliseconds: 1000));
+    await SecretCatApi.fetchSecrets();
+    setState(() {});
+    _refreshController.refreshCompleted();
+  }
+
   @override
   Widget build(BuildContext context) {
     List<Widget> screens = [
       FirstScreen(),
       SecondScreen(),
     ];
+
     return Scaffold(
       drawer: Drawer(),
       appBar: AppBar(
@@ -42,14 +50,7 @@ class _MainScreenState extends State<MainScreen> {
           ),
         ),
       ),
-      body: FutureBuilder(
-          future: SecretCatApi.fetchSecrets(),
-          builder: (context, snapshot) {
-            return SmartRefresher(
-              controller: _refreshController,
-              child: screens[_bottomNavIndex],
-            );
-          }),
+      body: screens[_bottomNavIndex],
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
         backgroundColor: primaryColor,
@@ -102,6 +103,7 @@ class _MainScreenState extends State<MainScreen> {
                     ElevatedButton(
                       onPressed: () {
                         SecretCatApi.addSecret(_textEditingController.text);
+
                         // 전송하고 나면 textController를 초기화
                         _textEditingController.clear();
                         Navigator.pop(context);
