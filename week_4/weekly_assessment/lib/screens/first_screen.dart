@@ -32,7 +32,6 @@ class _FirstScreenState extends State<FirstScreen> {
                   child: ListView.builder(
                     itemCount: snapshot.data.length,
                     itemBuilder: (context, index) {
-                      print(snapshot.data[index]);
                       return SecretCard(secret: snapshot.data[index]);
                     },
                   ),

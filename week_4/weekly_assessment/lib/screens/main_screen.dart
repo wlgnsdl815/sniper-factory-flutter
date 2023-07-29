@@ -3,7 +3,6 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:secret_cat_sdk/api/api.dart';
 import 'package:weekly_assessment/const/colors.dart';
 import 'package:weekly_assessment/screens/first_screen.dart';
@@ -18,16 +17,7 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   final TextEditingController _textEditingController = TextEditingController();
-  final RefreshController _refreshController = RefreshController();
-
   int _bottomNavIndex = 0;
-
-  void _onRefresh() async {
-    await Future.delayed(Duration(milliseconds: 1000));
-    await SecretCatApi.fetchSecrets();
-    setState(() {});
-    _refreshController.refreshCompleted();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +27,21 @@ class _MainScreenState extends State<MainScreen> {
     ];
 
     return Scaffold(
-      drawer: Drawer(),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            DrawerHeader(
+              child: Text('''비밀 듣는 고양이(SNS형)
+스나이퍼팩토리 교육용 앱'''),
+            ),
+            ListTile(
+              leading: FaIcon(FontAwesomeIcons.dev),
+              title: Text('Teddy'),
+            ),
+          ],
+        ),
+      ),
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.black),
         elevation: 0.0,
