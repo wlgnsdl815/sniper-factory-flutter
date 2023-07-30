@@ -1,4 +1,5 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:day16/screen/detail_secreen.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -19,6 +20,13 @@ class _SecondScreenState extends State<HomeScreen> {
 
   final RefreshController _refreshController = RefreshController();
   final PageController _pageController = PageController();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _connectionCheck();
+  }
 
   void _onRefresh() async {
     setState(() {
@@ -53,6 +61,8 @@ class _SecondScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        // 앱바의 뒤로가기 없애기
+        automaticallyImplyLeading: false,
         title: GestureDetector(
           onTap: () {
             _pageController.animateTo(
@@ -153,7 +163,12 @@ class _SecondScreenState extends State<HomeScreen> {
                                   // 시고르자브종은 이미지 불러오기가 안되어서 빈 화면을 보여준다.
                                   snapshot.data!.data['body'][index]['url'],
                                   errorBuilder: (context, error, stackTrace) {
-                                    return SizedBox();
+                                    return Center(
+                                        child: Text(
+                                      '이미지가 없어요 ㅠㅠ',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ));
                                   },
                                 ),
                               ),
@@ -164,9 +179,22 @@ class _SecondScreenState extends State<HomeScreen> {
                               ),
                               Align(
                                 alignment: Alignment.centerLeft,
-                                child: Icon(
-                                  Icons.insert_comment,
-                                  color: Colors.grey,
+                                child: InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (_) => DetailScreen(
+                                          images: snapshot.data!.data['body']
+                                              [index]['url'],
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  child: Icon(
+                                    Icons.insert_comment,
+                                    color: Colors.grey,
+                                  ),
                                 ),
                               ),
                             ],
