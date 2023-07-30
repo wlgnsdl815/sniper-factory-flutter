@@ -20,7 +20,11 @@ class _SplashScreenState extends State<SplashScreen> {
     Future.delayed(
       Duration(seconds: 2),
       () => Navigator.push(
-          context, MaterialPageRoute(builder: (_) => HomeScreen())),
+          context,
+          // 애니메이션 없이 장면 전환
+          PageRouteBuilder(
+            pageBuilder: (context, animation1, animation2) => HomeScreen(),
+          )),
     );
   }
 

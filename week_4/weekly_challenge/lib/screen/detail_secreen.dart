@@ -16,16 +16,19 @@ class DetailScreen extends StatelessWidget {
       },
       child: Scaffold(
         body: Center(
-          child: Image.network(
-            images,
-            errorBuilder: (context, error, stackTrace) {
-              print(error);
-              return Center(
-                  child: Text(
-                '이미지가 없어요 ㅠㅠ',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ));
-            },
+          child: Hero(
+            tag: 'Images',
+            child: Image.network(
+              images,
+              errorBuilder: (context, error, stackTrace) {
+                print(error);
+                return Center(
+                    child: Text(
+                  '이미지가 없어요 ㅠㅠ',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ));
+              },
+            ),
           ),
         ),
       ),
