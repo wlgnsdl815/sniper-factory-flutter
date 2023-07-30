@@ -1,4 +1,5 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:day16/components/heart_icon.dart';
 import 'package:day16/screen/detail_secreen.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -61,6 +62,31 @@ class _SecondScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
+        actions: [
+          InkWell(
+            onTap: () {
+              showModalBottomSheet(
+                  context: context,
+                  builder: (context) {
+                    return Container();
+                  });
+            },
+            child: Icon(
+              Icons.favorite,
+              color: Colors.red,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            child: InkWell(
+              onTap: () {},
+              child: Icon(
+                Icons.close,
+              ),
+            ),
+          ),
+        ],
         // 앱바의 뒤로가기 없애기
         automaticallyImplyLeading: false,
         title: GestureDetector(
@@ -81,7 +107,7 @@ class _SecondScreenState extends State<HomeScreen> {
           ? _renderCircle()
           : isRefreshing
               ? _renderShimmer()
-              : _renderFutureBuild(),
+              : _renderFutureBuilder(),
       floatingActionButton: FloatingActionButton(
         onPressed: _connectionCheck,
         child: Icon(
@@ -131,7 +157,7 @@ class _SecondScreenState extends State<HomeScreen> {
     );
   }
 
-  FutureBuilder<Response<dynamic>> _renderFutureBuild() {
+  FutureBuilder<Response<dynamic>> _renderFutureBuilder() {
     return FutureBuilder(
         future: dio.get('https://sniperfactory.com/sfac/read_dogs'),
         builder: (context, snapshot) => snapshot.connectionState ==
@@ -179,22 +205,36 @@ class _SecondScreenState extends State<HomeScreen> {
                               ),
                               Align(
                                 alignment: Alignment.centerLeft,
-                                child: InkWell(
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (_) => DetailScreen(
-                                          images: snapshot.data!.data['body']
-                                              [index]['url'],
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    InkWell(
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          // PageRouteBuilder로 스크린이 변할 때 넘어가는 애니메이션 없앴다.
+                                          PageRouteBuilder(
+                                            pageBuilder: (_, __, ___) =>
+                                                DetailScreen(
+                                                    images: snapshot
+                                                            .data!.data['body']
+                                                        [index]['url'],
+                                                    // tag는 유니크해야해서, index를 넘겨주었다.
+                                                    tag: 'imageHero-$index'),
+                                          ),
+                                        );
+                                      },
+                                      child: Hero(
+                                        tag: 'imageHero-$index',
+                                        child: Icon(
+                                          Icons.insert_comment,
+                                          color: Colors.grey,
                                         ),
                                       ),
-                                    );
-                                  },
-                                  child: Icon(
-                                    Icons.insert_comment,
-                                    color: Colors.grey,
-                                  ),
+                                    ),
+                                    HeartIcon(),
+                                  ],
                                 ),
                               ),
                             ],
