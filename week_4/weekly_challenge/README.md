@@ -46,4 +46,4 @@ Duration은 2초로 설정해주세요.
 
 ## 🧑‍💻 결과
 
-![Alt text](<Simulator Screen Recording - iPhone 14 Pro Max - 2023-07-31 at 22.07.07.gif>)
+![Alt text](<Simulator Screen Recording - iPhone 14 Pro Max - 2023-07-31 at 22.10.32.gif>)
