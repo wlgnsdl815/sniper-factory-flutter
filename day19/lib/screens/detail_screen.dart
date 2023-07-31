@@ -16,6 +16,11 @@ class DetailScreen extends StatelessWidget {
         Navigator.pop(context);
       },
       child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            'Second Page',
+          ),
+        ),
         body: Hero(
           tag: heroTag,
           child: Center(
