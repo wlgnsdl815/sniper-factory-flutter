@@ -1,9 +1,11 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:day16/components/heart_icon.dart';
+import 'package:day16/main.dart';
 import 'package:day16/screen/detail_secreen.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -18,6 +20,7 @@ class _SecondScreenState extends State<HomeScreen> {
   Dio dio = Dio();
   bool isRefreshing = false;
   bool isLoading = false;
+  double currentOpacity = 0;
 
   final RefreshController _refreshController = RefreshController();
   final PageController _pageController = PageController();
@@ -40,6 +43,7 @@ class _SecondScreenState extends State<HomeScreen> {
 
     setState(() {
       isRefreshing = false;
+      currentOpacity = 1;
     });
   }
 
@@ -69,7 +73,61 @@ class _SecondScreenState extends State<HomeScreen> {
               showModalBottomSheet(
                   context: context,
                   builder: (context) {
-                    return Container();
+                    var box = Hive.box(favoriteBox);
+                    return ValueListenableBuilder(
+                      valueListenable: Hive.box(favoriteBox).listenable(),
+                      builder: (context, value, child) {
+                        return box.keys.isNotEmpty
+                            ? ListView.builder(
+                                itemCount: box.keys.length,
+                                itemBuilder: (context, index) {
+                                  var items = box.values.elementAt(index);
+                                  return Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10.0, vertical: 12.0),
+                                    child: Row(
+                                      children: [
+                                        Container(
+                                          clipBehavior: Clip.antiAlias,
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(
+                                              16.0,
+                                            ),
+                                          ),
+                                          height: 100,
+                                          width: 100,
+                                          child: Image.network(
+                                            items['url'],
+                                            fit: BoxFit.cover,
+                                            errorBuilder:
+                                                (context, error, stackTrace) {
+                                              return Center(
+                                                  child: Text('이미지가 없다니까요!'));
+                                            },
+                                          ),
+                                        ),
+                                        SizedBox(width: 10),
+                                        Text(
+                                          '${items['msg']}',
+                                          style: TextStyle(
+                                              fontSize: 14.0,
+                                              fontWeight: FontWeight.bold),
+                                        )
+                                      ],
+                                    ),
+                                  );
+                                })
+                            : Center(
+                                child: Text(
+                                  '좋아요 목록이 비어있습니다.',
+                                  style: TextStyle(
+                                    fontSize: 15.0,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              );
+                      },
+                    );
                   });
             },
             child: Icon(
@@ -80,7 +138,10 @@ class _SecondScreenState extends State<HomeScreen> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: InkWell(
-              onTap: () {},
+              onTap: () {
+                final box = Hive.box(favoriteBox);
+                box.clear();
+              },
               child: Icon(
                 Icons.close,
               ),
@@ -166,6 +227,7 @@ class _SecondScreenState extends State<HomeScreen> {
                 header: MaterialClassicHeader(),
                 controller: _refreshController,
                 onRefresh: _onRefresh,
+                enablePullDown: true,
                 child: GridView.builder(
                   controller: _pageController,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -177,9 +239,10 @@ class _SecondScreenState extends State<HomeScreen> {
                       padding: const EdgeInsets.all(4.0),
                       child: Card(
                         shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(
-                          16.0,
-                        )),
+                          borderRadius: BorderRadius.circular(
+                            16.0,
+                          ),
+                        ),
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Column(
@@ -190,11 +253,12 @@ class _SecondScreenState extends State<HomeScreen> {
                                   snapshot.data!.data['body'][index]['url'],
                                   errorBuilder: (context, error, stackTrace) {
                                     return Center(
-                                        child: Text(
-                                      '이미지가 없어요 ㅠㅠ',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold),
-                                    ));
+                                      child: Text(
+                                        '이미지가 없어요 ㅠㅠ',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    );
                                   },
                                 ),
                               ),
@@ -233,7 +297,13 @@ class _SecondScreenState extends State<HomeScreen> {
                                         ),
                                       ),
                                     ),
-                                    HeartIcon(),
+                                    HeartIcon(
+                                      imgUrl: snapshot.data!.data['body'][index]
+                                          ['url'],
+                                      msg: snapshot.data!.data['body'][index]
+                                          ['msg'],
+                                      index: index,
+                                    ),
                                   ],
                                 ),
                               ),

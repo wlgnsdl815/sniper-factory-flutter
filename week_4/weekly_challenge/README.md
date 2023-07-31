@@ -45,3 +45,5 @@ Duration은 2초로 설정해주세요.
 6. 우측 상단의 X 를 누르면 좋아요가 모두 삭제가 됩니다. 단 하트가 빨간색에서 회색으로만 바뀌어야하고 화면 모두 새로고침이 되면 안됩니다.
 
 ## 🧑‍💻 결과
+
+![Alt text](<Simulator Screen Recording - iPhone 14 Pro Max - 2023-07-31 at 22.07.07.gif>)
