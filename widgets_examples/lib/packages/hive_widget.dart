@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:widgets_examples/layout/default_layout.dart';
-import 'package:widgets_examples/main.dart';
 
 // 오타 방지를 위해서 변수로 만들었다.
 const favoriteBox = 'favorite';
