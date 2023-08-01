@@ -3,6 +3,7 @@
 import 'package:day20/screens/admin_screen.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -12,9 +13,24 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  Dio dio = Dio();
+  SharedPreferences? pref;
+  List<String> orderList = [];
 
-  final List<String> orderList = [];
+  @override
+  void initState() {
+    super.initState();
+    initPreference();
+  }
+
+  void initPreference() async {
+    pref = await SharedPreferences.getInstance();
+    if (pref != null) {
+      orderList = pref!.getStringList('orderList') ?? [];
+      setState(() {});
+    }
+  }
+
+  Dio dio = Dio();
 
   @override
   Widget build(BuildContext context) {
@@ -46,27 +62,21 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             if (orderList.isNotEmpty)
-              SizedBox(
-                height: 40,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  shrinkWrap: true,
-                  itemCount: orderList.length,
-                  itemBuilder: (context, index) {
-                    return Wrap(
-                      children: [
-                        Chip(
-                          onDeleted: () {
-                            setState(() {
-                              orderList.removeAt(index);
-                            });
-                          },
-                          label: Text(orderList[index]),
-                          deleteIcon: Icon(
-                            Icons.cancel,
-                          ),
-                        ),
-                      ],
+              Wrap(
+                direction: Axis.horizontal,
+                children: List<Widget>.generate(
+                  orderList.length,
+                  (int index) {
+                    return Chip(
+                      onDeleted: () {
+                        setState(() {
+                          orderList.removeAt(index);
+                        });
+                      },
+                      label: Text(orderList[index]),
+                      deleteIcon: Icon(
+                        Icons.cancel,
+                      ),
                     );
                   },
                 ),
@@ -86,63 +96,69 @@ class _HomeScreenState extends State<HomeScreen> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            FutureBuilder(
-              future: dio.get(
-                  'http://52.79.115.43:8090/api/collections/options/records'),
-              builder: (context, snapshot) {
-                print('${snapshot.data!.data['items'].length}');
-
-                if (snapshot.connectionState == ConnectionState.done) {
-                  return GridView.builder(
-                    shrinkWrap: true,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3,
-                    ),
-                    itemCount: snapshot.data!.data['items'].length,
-                    itemBuilder: (context, index) {
-                      return GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            orderList.add(
-                                snapshot.data!.data['items'][index]['menu']);
-                          });
-                        },
-                        child: Card(
-                          // 카드로 만들었다.
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Expanded(
-                                child: Image.network(
-                                  snapshot.data!.data['items'][index]
-                                      ['imageUrl'],
-                                  fit: BoxFit.cover,
-                                  width: MediaQuery.of(context).size.width,
-                                  // 가로 길이를 최대한으로 늘려준다
+            Expanded(
+              child: FutureBuilder(
+                future: dio.get(
+                    'http://52.79.115.43:8090/api/collections/options/records'),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done &&
+                      snapshot.hasData) {
+                    return GridView.builder(
+                      shrinkWrap: true,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 3,
+                      ),
+                      itemCount: snapshot.data!.data['items'].length,
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              orderList.add(
+                                  snapshot.data!.data['items'][index]['menu']);
+                              if (pref != null) {
+                                pref!.setStringList(
+                                  'orderList',
+                                  orderList,
+                                );
+                              }
+                            });
+                          },
+                          child: Card(
+                            // 카드로 만들었다.
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Expanded(
+                                  child: Image.network(
+                                    snapshot.data!.data['items'][index]
+                                        ['imageUrl'],
+                                    fit: BoxFit.cover,
+                                    width: MediaQuery.of(context).size.width,
+                                  ),
                                 ),
-                              ),
-                              Text(
-                                snapshot.data!.data['items'][index]['menu'],
-                                style: TextStyle(
-                                  fontSize: 18.0,
-                                  fontWeight: FontWeight.bold,
+                                Text(
+                                  snapshot.data!.data['items'][index]['menu'],
+                                  style: TextStyle(
+                                    fontSize: 18.0,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                              ),
-                              Text(
-                                '[담기]',
-                              ),
-                            ],
+                                Text(
+                                  '[담기]',
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                      );
-                    },
-                  );
-                } else {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-              },
+                        );
+                      },
+                    );
+                  } else {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                },
+              ),
             ),
           ],
         ),
