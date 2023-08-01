@@ -13,6 +13,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  // getData()를 담을 Future변수 선언
   Future? result;
   SharedPreferences? pref;
   List<String> orderList = [];
@@ -21,6 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     initPreference();
+    // result에 getData()를 실행한 값을 넣는다
     result = getData();
   }
 
@@ -40,8 +42,6 @@ class _HomeScreenState extends State<HomeScreen> {
       return resp;
     }
   }
-
-  Dio dio = Dio();
 
   @override
   Widget build(BuildContext context) {
