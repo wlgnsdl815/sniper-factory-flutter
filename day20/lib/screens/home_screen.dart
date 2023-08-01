@@ -13,6 +13,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  Future? result;
   SharedPreferences? pref;
   List<String> orderList = [];
 
@@ -20,6 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     initPreference();
+    result = getData();
   }
 
   void initPreference() async {
@@ -27,6 +29,15 @@ class _HomeScreenState extends State<HomeScreen> {
     if (pref != null) {
       orderList = pref!.getStringList('orderList') ?? [];
       setState(() {});
+    }
+  }
+
+  Future getData() async {
+    Dio dio = Dio();
+    var resp = await dio
+        .get('http://52.79.115.43:8090/api/collections/options/records');
+    if (resp.statusCode == 200) {
+      return resp;
     }
   }
 
@@ -72,6 +83,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         setState(() {
                           orderList.removeAt(index);
                         });
+                        pref!.remove('orderList');
                       },
                       label: Text(orderList[index]),
                       deleteIcon: Icon(
@@ -98,8 +110,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             Expanded(
               child: FutureBuilder(
-                future: dio.get(
-                    'http://52.79.115.43:8090/api/collections/options/records'),
+                future: result,
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.done &&
                       snapshot.hasData) {

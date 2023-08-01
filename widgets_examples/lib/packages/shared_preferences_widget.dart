@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:widgets_examples/layout/default_layout.dart';
 
 class SharedPreferencesWidget extends StatefulWidget {
   const SharedPreferencesWidget({super.key});
