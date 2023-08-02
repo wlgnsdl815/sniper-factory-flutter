@@ -8,6 +8,7 @@ class DetailScreen extends StatelessWidget {
   final String content;
   final String author;
   final String articleUrl;
+  final String heroTag;
 
   const DetailScreen({
     super.key,
@@ -16,6 +17,7 @@ class DetailScreen extends StatelessWidget {
     required this.title,
     required this.author,
     required this.articleUrl,
+    required this.heroTag,
   });
 
   @override
@@ -24,9 +26,16 @@ class DetailScreen extends StatelessWidget {
       body: SafeArea(
         child: ListView(
           children: [
-            AspectRatio(
-              aspectRatio: 16 / 9,
-              child: ImageContainer(imgUrl: imgUrl),
+            Column(
+              children: [
+                AspectRatio(
+                  aspectRatio: 16 / 9,
+                  child: Hero(
+                    tag: heroTag,
+                    child: ImageContainer(imgUrl: imgUrl),
+                  ),
+                ),
+              ],
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -67,9 +76,7 @@ class DetailScreen extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pop(context);
-        },
+        onPressed: () {},
         child: Icon(
           Icons.arrow_back,
         ),

@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:monthly_assignment/components/image_container.dart';
@@ -35,31 +36,51 @@ class _HomeScreenState extends State<HomeScreen> {
         elevation: 0.0,
         title: Text('News'),
       ),
-      body: FutureBuilder<Map<String, dynamic>>(
-          future: result,
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              return ListView.builder(
-                itemCount: snapshot.data!['items'].length,
-                itemBuilder: (context, index) {
-                  var item = snapshot.data!['items'][index];
-                  return AspectRatio(
-                    aspectRatio: 16 / 9,
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (_) => DetailScreen(
-                                      imgUrl: item['thumbnail'],
-                                      content: item['content'],
-                                      title: item['title'],
-                                      author: item['author'],
-                                      articleUrl: item['news_url'],
-                                    )));
-                      },
-                      child: Hero(
-                        tag: 'imageTag$index',
+      body: RenderBody(result: result),
+    );
+  }
+}
+
+class RenderBody extends StatelessWidget {
+  const RenderBody({
+    super.key,
+    required this.result,
+  });
+
+  final Future<Map<String, dynamic>>? result;
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<Map<String, dynamic>>(
+        future: result,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return ListView.builder(
+              itemCount: snapshot.data!['items'].length,
+              itemBuilder: (context, index) {
+                var item = snapshot.data!['items'][index];
+                return AspectRatio(
+                  aspectRatio: 16 / 9,
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => DetailScreen(
+                            imgUrl: item['thumbnail'],
+                            content: item['content'],
+                            title: item['title'],
+                            author: item['author'],
+                            articleUrl: item['news_url'],
+                            heroTag: 'imageTag$index',
+                          ),
+                        ),
+                      );
+                    },
+                    child: Hero(
+                      tag: 'imageTag$index',
+                      child: FadeIn(
+                        duration: Duration(seconds: 2),
                         child: ImageContainer(
                           margin: EdgeInsets.symmetric(
                             horizontal: 16.0,
@@ -85,45 +106,14 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                           ),
                         ),
-                        // Container(
-                        //   margin: EdgeInsets.symmetric(
-                        //       horizontal: 16.0, vertical: 8.0),
-                        //   decoration: BoxDecoration(
-                        //     borderRadius: BorderRadius.circular(8.0),
-                        //     image: DecorationImage(
-                        //       image: NetworkImage(item['thumbnail']),
-                        //       fit: BoxFit.cover,
-                        //       opacity: 0.4,
-                        //     ),
-                        //     color: Colors.black,
-                        //   ),
-                        //   child: Padding(
-                        //     padding: const EdgeInsets.all(8.0),
-                        //     child: Column(
-                        //       mainAxisAlignment: MainAxisAlignment.end,
-                        //       crossAxisAlignment: CrossAxisAlignment.start,
-                        //       children: [
-                        //         Text(
-                        //           item['title'],
-                        //           style: TextStyle(fontWeight: FontWeight.bold),
-                        //         ),
-                        //         Text(
-                        //           item['content'],
-                        //           maxLines: 2,
-                        //           overflow: TextOverflow.ellipsis,
-                        //         ),
-                        //       ],
-                        //     ),
-                        //   ),
-                        // ),
                       ),
                     ),
-                  );
-                },
-              );
-            }
-            return Center(child: CircularProgressIndicator());
-          }),
-    );
+                  ),
+                );
+              },
+            );
+          }
+          return Center(child: CircularProgressIndicator());
+        });
   }
 }
