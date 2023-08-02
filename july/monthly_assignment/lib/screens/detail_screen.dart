@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:monthly_assignment/components/image_container.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class DetailScreen extends StatelessWidget {
@@ -25,10 +26,7 @@ class DetailScreen extends StatelessWidget {
           children: [
             AspectRatio(
               aspectRatio: 16 / 9,
-              child: Image.network(
-                imgUrl,
-                fit: BoxFit.cover,
-              ),
+              child: ImageContainer(imgUrl: imgUrl),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),

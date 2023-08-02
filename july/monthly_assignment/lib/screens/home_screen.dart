@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:monthly_assignment/components/image_container.dart';
 import 'package:monthly_assignment/screens/detail_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -37,7 +38,6 @@ class _HomeScreenState extends State<HomeScreen> {
       body: FutureBuilder<Map<String, dynamic>>(
           future: result,
           builder: (context, snapshot) {
-            print(snapshot.data);
             if (snapshot.hasData) {
               return ListView.builder(
                 itemCount: snapshot.data!['items'].length,
@@ -58,36 +58,64 @@ class _HomeScreenState extends State<HomeScreen> {
                                       articleUrl: item['news_url'],
                                     )));
                       },
-                      child: Container(
-                        margin: EdgeInsets.symmetric(
-                            horizontal: 16.0, vertical: 8.0),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8.0),
-                          image: DecorationImage(
-                            image: NetworkImage(item['thumbnail']),
-                            fit: BoxFit.cover,
-                            opacity: 0.4,
+                      child: Hero(
+                        tag: 'imageTag$index',
+                        child: ImageContainer(
+                          margin: EdgeInsets.symmetric(
+                            horizontal: 16.0,
+                            vertical: 8.0,
                           ),
-                          color: Colors.black,
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                item['title'],
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              ),
-                              Text(
-                                item['content'],
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ],
+                          imgUrl: item['thumbnail'],
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  item['title'],
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
+                                Text(
+                                  item['content'],
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ],
+                            ),
                           ),
                         ),
+                        // Container(
+                        //   margin: EdgeInsets.symmetric(
+                        //       horizontal: 16.0, vertical: 8.0),
+                        //   decoration: BoxDecoration(
+                        //     borderRadius: BorderRadius.circular(8.0),
+                        //     image: DecorationImage(
+                        //       image: NetworkImage(item['thumbnail']),
+                        //       fit: BoxFit.cover,
+                        //       opacity: 0.4,
+                        //     ),
+                        //     color: Colors.black,
+                        //   ),
+                        //   child: Padding(
+                        //     padding: const EdgeInsets.all(8.0),
+                        //     child: Column(
+                        //       mainAxisAlignment: MainAxisAlignment.end,
+                        //       crossAxisAlignment: CrossAxisAlignment.start,
+                        //       children: [
+                        //         Text(
+                        //           item['title'],
+                        //           style: TextStyle(fontWeight: FontWeight.bold),
+                        //         ),
+                        //         Text(
+                        //           item['content'],
+                        //           maxLines: 2,
+                        //           overflow: TextOverflow.ellipsis,
+                        //         ),
+                        //       ],
+                        //     ),
+                        //   ),
+                        // ),
                       ),
                     ),
                   );
