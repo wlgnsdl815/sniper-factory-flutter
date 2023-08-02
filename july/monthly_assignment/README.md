@@ -16,4 +16,5 @@ theme: ThemeData.dark().copyWith(
 ```
 
 ## 🧑‍💻 결과
-![Alt text](<Simulator Screen Recording - iPhone 14 Pro Max - 2023-08-02 at 11.28.51.gif>)
+
+![Alt text](<Simulator Screen Recording - iPhone 14 Pro Max - 2023-08-02 at 12.07.15.gif>)
