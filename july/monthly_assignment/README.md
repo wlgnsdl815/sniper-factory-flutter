@@ -1,16 +1,16 @@
-# monthly_assignment
+# 1단계 월말평가 (뉴스앱)
 
-A new Flutter project.
+## Requirements
 
-## Getting Started
+- 제공되는 API에 데이터 요청을 보내고, 받은 응답 데이터를 통하여 화면에 출력합니다.
+- 이 때 각 뉴스를 클릭했을 때 상세 뉴스페이지로 이동됩니다.
+- 뉴스페이지로 가게되면 Full Article 버튼이 존재하며, 해당 버튼을 누르게되면 뉴스 원본 URL로 이동합니다.
+- 폰트는 구글폰트를 사용하며, MaterialApp 위젯 안의 테마는 다음과 같이 설정하도록 합니다.
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```dart 
+theme: ThemeData.dark().copyWith(
+        textTheme: GoogleFonts.nunitoSansTextTheme(
+          const TextTheme(),
+        ),
+      ),
+```
