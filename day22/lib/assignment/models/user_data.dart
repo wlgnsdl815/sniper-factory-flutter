@@ -47,16 +47,13 @@ class UserData {
     required this.phoneNumber,
   });
 
-  static dummy() {
-    return UserData(
-      id: 'DUMMY',
-      name: '더미데이터',
-      birth: DateTime.now(),
-      email: 'dummyData@dummy.com',
-      phoneNumber: '0l0',
-      lastLoginDate: DateTime.now(),
-    );
-  }
+  UserData.dummy()
+      : id = 'DUMMY',
+        name = '더미데이터',
+        birth = DateTime.now(),
+        phoneNumber = '010',
+        email = 'dummyData@dummy.com',
+        lastLoginDate = DateTime.now();
 
   // print()는 어떤 객체가 전달되든 그 객체의 toString() 함수를 호출한다.
   @override
