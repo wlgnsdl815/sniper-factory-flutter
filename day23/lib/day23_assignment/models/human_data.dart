@@ -12,12 +12,14 @@ class Human {
     this.curSubway,
   });
 
+  // Subway를 인자값으로 받아서 현재 가지고 있는 돈을 계산 후 탑승시킨다
   getOn(Subway subway) {
     if (money > 1500) {
       money -= 1500;
       subway.passengers.add(
         Human(name: name, money: money),
       );
+      // 탑승에 성공하면 curSubway를 현재 subway로 바꾸어준다
       curSubway = subway;
       return '$name이(가) 성공적으로 탑승하였습니다. (남은 돈 : $money)';
     } else {

@@ -1,4 +1,4 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+// 기본 클래스
 class UserData {
   String id;
   DateTime birth;
@@ -7,6 +7,7 @@ class UserData {
   String name;
   String phoneNumber;
 
+  // 생성자
   UserData({
     required this.id,
     required this.birth,
@@ -17,6 +18,7 @@ class UserData {
   });
 
   @override
+  // toString을 오버라이드해서 결과 출력
   String toString() {
     return 'id: $id\nbirth: $birth\nemail: $email\nlastLoginDate: $lastLoginDate\nname: $name\nphoneNumber: $phoneNumber';
   }

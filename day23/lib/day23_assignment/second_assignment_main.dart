@@ -1,4 +1,4 @@
-import 'package:day23/day23_assignment/screens/home.dart';
+import 'package:day23/day23_assignment/screens/second_assignment_home.dart';
 import 'package:flutter/material.dart';
 
 void main() {

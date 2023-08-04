@@ -1,5 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-
 class NetworkData {
   String image;
   String name;
@@ -13,6 +11,7 @@ class NetworkData {
     required this.price,
   });
 
+  // json형태로 받은 걸 class로 만드는 .fromJson함수 정의
   factory NetworkData.fromJson(Map<String, dynamic> json) => NetworkData(
         image: json['image'],
         name: json['name'],
