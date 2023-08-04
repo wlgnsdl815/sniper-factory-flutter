@@ -64,3 +64,7 @@ UserData 클래스를 제작하고 toString를 새로 재정의하여 만드시�
     - **실행결과(출력결과)는 다음과 같습니다.**
 
 ## 결과
+
+### 2번
+
+![Alt text](<Simulator Screenshot - iPhone 14 Pro Max - 2023-08-04 at 19.40.43.png>)
