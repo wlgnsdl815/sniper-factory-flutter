@@ -2,6 +2,7 @@ import 'package:day23/day23_assignment/models/user_data.dart';
 
 void main() {
   // 1번 과제
+
   UserData userData = UserData(
     id: 'snpierFactory',
     birth: DateTime.now(),
