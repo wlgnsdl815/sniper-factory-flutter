@@ -12,6 +12,7 @@ class MyApp extends StatelessWidget {
       // 폰트 등록
       theme: ThemeData(fontFamily: 'Neo'),
       home: HomeScreen(),
+
     );
   }
 }
