@@ -4,6 +4,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:weekly_challenge/components/custom_button.dart';
 import 'package:weekly_challenge/components/custom_card.dart';
 import 'package:weekly_challenge/models/email_data.dart';
+import 'package:weekly_challenge/screen/remove.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -115,6 +116,16 @@ class _HomeScreenState extends State<HomeScreen> {
             return Center(child: CircularProgressIndicator());
           }
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (_) => RemoveScreen()));
+        },
+        backgroundColor: Colors.lightGreen,
+        child: Icon(
+          Icons.delete_outline,
+        ),
       ),
     );
   }
