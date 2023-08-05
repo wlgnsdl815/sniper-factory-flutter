@@ -18,9 +18,9 @@ class RemoveScreen extends StatelessWidget {
         ),
       ),
       body: ValueListenableBuilder(
-        valueListenable: Hive.box(removedListBox).listenable(),
+        valueListenable: Hive.box<String>(removedListBox).listenable(),
         builder: (context, value, child) {
-          Box box = Hive.box(removedListBox);
+          Box box = Hive.box<String>(removedListBox);
           return ListView.builder(
             itemCount: box.length,
             itemBuilder: ((context, index) => ListTile(

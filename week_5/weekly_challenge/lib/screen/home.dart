@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -50,6 +52,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Box<String> box = Hive.box<String>(removedListBox);
+    List<dynamic> filterData = box.keys.toList();
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -89,6 +94,22 @@ class _HomeScreenState extends State<HomeScreen> {
 
             List<EmailData> emailDataList =
                 dataList.map((e) => EmailData.fromJson(e)).toList();
+
+            List filteredDataList;
+
+            filteredDataList = emailDataList
+                .where(
+                  (element) => filterData.contains(element),
+                )
+                .toList();
+            // for (int i = 0; i < emailDataList.length; i++) {
+            //   if (emailDataList[i].title == filterData[i].key) {
+            //     continue;
+            //   }
+            //   filteredDataList.add(emailDataList);
+            // }
+            print('filtered: $filteredDataList');
+
             return Padding(
               padding: const EdgeInsets.all(8.0),
               child: SmartRefresher(
@@ -103,13 +124,14 @@ class _HomeScreenState extends State<HomeScreen> {
                     if (index == 0) {
                       return CustomButton();
                     }
+
                     return GestureDetector(
                       onTap: () {},
                       child: CustomCard(
                         isRead: isRead,
                         emailData: emailDataList[index - 1],
                         onDismissed: (DismissDirection) {
-                          Box box = Hive.box(removedListBox);
+                          Box box = Hive.box<String>(removedListBox);
                           // box.clear();
                           box.put(emailDataList[index].from,
                               emailDataList[index].title);

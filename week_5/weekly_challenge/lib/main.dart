@@ -4,10 +4,11 @@ import 'package:weekly_challenge/screen/home.dart';
 
 const searchListBox = 'searchListBox';
 const removedListBox = 'removedListBox';
+const wholeDataListBox = 'wholeDataListBox';
 void main() async {
   await Hive.initFlutter();
   await Hive.openBox<String>(searchListBox);
-  await Hive.openBox(removedListBox);
+  await Hive.openBox<String>(removedListBox);
 
   return runApp(MyApp());
 }
