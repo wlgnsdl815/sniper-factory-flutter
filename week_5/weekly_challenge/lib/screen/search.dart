@@ -35,6 +35,7 @@ class SearchScreen extends StatelessWidget {
           // Box<String>으로 열었기 때문에 제너릭으로 다 명시해주었다.
           Box<String> box = Hive.box<String>(searchListBox);
           List<String> boxList = box.values.toList();
+          print(boxList);
           return ListView.separated(
             separatorBuilder: (context, index) => Divider(
               color: Colors.grey,
@@ -42,9 +43,30 @@ class SearchScreen extends StatelessWidget {
             itemCount: box.values.length,
             itemBuilder: (context, index) {
               return ListTile(
-                title: Text(
-                  // 최근 순서부터 출력
-                  boxList.reversed.toList()[index],
+                title: RichText(
+                  text: TextSpan(
+                    style: TextStyle(
+                      fontSize: 18.0,
+                      color: Colors.black,
+                    ),
+                    children: [
+                      TextSpan(
+                        // 최근 순서부터 출력
+                        text: boxList[boxList.length - 1 - index],
+                      ),
+                      TextSpan(
+                        text: ' (전체)',
+                        style: TextStyle(color: Colors.grey),
+                      ),
+                    ],
+                  ),
+                ),
+                trailing: IconButton(
+                  onPressed: () {
+                    box.deleteAt(boxList.length - 1 - index);
+                    print(boxList);
+                  },
+                  icon: Icon(Icons.close),
                 ),
               );
             },

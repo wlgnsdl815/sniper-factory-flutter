@@ -16,6 +16,7 @@ class CustomTextField extends StatelessWidget {
           box.add(value);
 
           print(box.values.runtimeType);
+          textEditingController.clear();
         },
         controller: textEditingController,
         cursorColor: Colors.black,
