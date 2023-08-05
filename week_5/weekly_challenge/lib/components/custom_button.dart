@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weekly_challenge/screen/search.dart';
 
 class CustomButton extends StatelessWidget {
   const CustomButton({super.key});
@@ -6,7 +7,10 @@ class CustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () {},
+      onPressed: () {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (_) => SearchScreen()));
+      },
       style: ElevatedButton.styleFrom(
         backgroundColor: Colors.grey[350],
         elevation: 0.0,

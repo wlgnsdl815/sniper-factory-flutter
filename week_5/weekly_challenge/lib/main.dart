@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:weekly_challenge/screen/home.dart';
 
-void main() => runApp(MyApp());
+const searchListBox = 'searchListBox';
+
+void main() async {
+  await Hive.initFlutter();
+  await Hive.openBox<String>(searchListBox);
+
+  return runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
