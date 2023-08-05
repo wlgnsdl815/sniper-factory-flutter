@@ -1,8 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:weekly_challenge/components/custom_button.dart';
 import 'package:weekly_challenge/components/custom_card.dart';
+import 'package:weekly_challenge/main.dart';
 import 'package:weekly_challenge/models/email_data.dart';
 import 'package:weekly_challenge/screen/remove.dart';
 
@@ -106,6 +108,15 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: CustomCard(
                         isRead: isRead,
                         emailData: emailDataList[index - 1],
+                        onDismissed: (DismissDirection) {
+                          Box box = Hive.box(removedListBox);
+                          // box.clear();
+                          box.put(emailDataList[index].from,
+                              emailDataList[index].title);
+
+                          print(box.keys);
+                          print(box.values);
+                        },
                       ),
                     );
                   }),

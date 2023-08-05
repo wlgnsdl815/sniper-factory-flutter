@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/hive_flutter.dart';
-import 'package:weekly_challenge/main.dart';
 import 'package:weekly_challenge/models/email_data.dart';
 
 class CustomCard extends StatelessWidget {
+  final Function(DismissDirection) onDismissed;
+
   const CustomCard({
     super.key,
     required this.isRead,
     required this.emailData,
+    required this.onDismissed,
   });
 
   final bool isRead;
@@ -18,14 +19,7 @@ class CustomCard extends StatelessWidget {
     return Dismissible(
       // 왼쪽으로 슬라이드
       direction: DismissDirection.endToStart,
-      onDismissed: (direction) {
-        Box box = Hive.box(removedListBox);
-        // box.clear();
-        box.put(emailData.from, emailData.title);
-
-        print(box.keys);
-        print(box.values);
-      },
+      onDismissed: onDismissed,
       background: Container(
         width: 30,
         color: Colors.red[400],
