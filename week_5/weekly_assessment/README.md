@@ -55,3 +55,4 @@
 
 ### 2번 결과
 
+![Alt text](<Simulator Screenshot - iPhone 14 Pro Max - 2023-08-05 at 17.55.27.png>)
