@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:weekly_challenge/components/custom_button.dart';
+import 'package:weekly_challenge/components/custom_card.dart';
 import 'package:weekly_challenge/models/email_data.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -12,6 +14,8 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   Future? result;
+  bool isRead = false;
+  PageController _pageController = PageController();
 
   @override
   void initState() {
@@ -36,7 +40,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void _onRefresh() async {
     await Future.delayed(Duration(milliseconds: 1000));
+
     _refreshController.refreshCompleted();
+    setState(() {});
   }
 
   @override
@@ -46,7 +52,16 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
         elevation: 0.0,
-        title: Text('프로모션'),
+        title: GestureDetector(
+          child: Text('프로모션'),
+          onTap: () {
+            _pageController.animateTo(
+              1,
+              duration: Duration(milliseconds: 300),
+              curve: Curves.easeIn,
+            );
+          },
+        ),
         actions: [
           IconButton(
             onPressed: () {},
@@ -62,16 +77,15 @@ class _HomeScreenState extends State<HomeScreen> {
         future: result,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            print(snapshot.data['emails']);
-            print(snapshot.data['emails'].runtimeType);
+            // print(snapshot.data['emails']);
+            // print(snapshot.data['emails'].runtimeType);
             // dataList를 snapshot.data['emails']에서 새로운 리스트를 만들고 집어넣었다.
             // 이렇게 하지 않으면 타입에러가 났다.
             List<Map<String, dynamic>> dataList =
                 List<Map<String, dynamic>>.from(snapshot.data['emails']);
 
-            List<EmailData> emailList =
+            List<EmailData> emailDataList =
                 dataList.map((e) => EmailData.fromJson(e)).toList();
-
             return Padding(
               padding: const EdgeInsets.all(8.0),
               child: SmartRefresher(
@@ -79,17 +93,18 @@ class _HomeScreenState extends State<HomeScreen> {
                 controller: _refreshController,
                 onRefresh: _onRefresh,
                 child: ListView.builder(
+                  controller: _pageController,
                   // 첫번째 인덱스에는 텍스트 필드를 넣기 위해서 길이를 하나 늘렸다.
                   itemCount: snapshot.data['emails'].length + 1,
                   itemBuilder: ((context, index) {
-                    if (index == 0) return TextField();
-                    return Card(
-                      child: Row(
-                        children: [
-                          Text(
-                            emailList[index - 1].from,
-                          ),
-                        ],
+                    if (index == 0) {
+                      return CustomButton();
+                    }
+                    return GestureDetector(
+                      onTap: () {},
+                      child: CustomCard(
+                        isRead: isRead,
+                        emailData: emailDataList[index - 1],
                       ),
                     );
                   }),
