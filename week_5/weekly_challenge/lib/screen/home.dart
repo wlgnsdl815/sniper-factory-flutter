@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -85,30 +83,23 @@ class _HomeScreenState extends State<HomeScreen> {
         future: result,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            // print(snapshot.data['emails']);
-            // print(snapshot.data['emails'].runtimeType);
-            // dataList를 snapshot.data['emails']에서 새로운 리스트를 만들고 집어넣었다.
-            // 이렇게 하지 않으면 타입에러가 났다.
             List<Map<String, dynamic>> dataList =
                 List<Map<String, dynamic>>.from(snapshot.data['emails']);
+            // future를 통해 받아온 데이터
+            print('데이터 리스트 : $dataList');
 
             List<EmailData> emailDataList =
                 dataList.map((e) => EmailData.fromJson(e)).toList();
-
-            List filteredDataList;
-
-            filteredDataList = emailDataList
+            // 모델링 작업 후 다시 리스트에 담아준 이메일 데이터 리스트 Instance of 'EmailData'가 찍히므로 성공
+            print('이메일 데이터 리스트 : $emailDataList');
+            // 삭제한 값이 담긴 데이터 리스트
+            print('휴지통 데이터 : $filterData');
+            // 휴지통에 있는 값들이 emailData.from과 일치하지 않는 것만 필터링 = 휴지통에 없는 값만 필터링
+            List<EmailData> filteredDataList = emailDataList
                 .where(
-                  (element) => filterData.contains(element),
+                  (emailData) => !filterData.contains(emailData.from),
                 )
                 .toList();
-            // for (int i = 0; i < emailDataList.length; i++) {
-            //   if (emailDataList[i].title == filterData[i].key) {
-            //     continue;
-            //   }
-            //   filteredDataList.add(emailDataList);
-            // }
-            print('filtered: $filteredDataList');
 
             return Padding(
               padding: const EdgeInsets.all(8.0),
@@ -118,8 +109,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 onRefresh: _onRefresh,
                 child: ListView.builder(
                   controller: _pageController,
-                  // 첫번째 인덱스에는 텍스트 필드를 넣기 위해서 길이를 하나 늘렸다.
-                  itemCount: snapshot.data['emails'].length + 1,
+                  // 위에서 필터링시킨 리스트의 길이를 받음
+                  itemCount: filteredDataList.length,
                   itemBuilder: ((context, index) {
                     if (index == 0) {
                       return CustomButton();
@@ -129,15 +120,16 @@ class _HomeScreenState extends State<HomeScreen> {
                       onTap: () {},
                       child: CustomCard(
                         isRead: isRead,
-                        emailData: emailDataList[index - 1],
+                        // 필터링 된 리스트 전달
+                        emailData: filteredDataList[index],
                         onDismissed: (DismissDirection) {
                           Box box = Hive.box<String>(removedListBox);
                           // box.clear();
-                          box.put(emailDataList[index].from,
-                              emailDataList[index].title);
+                          box.put(filteredDataList[index].from,
+                              filteredDataList[index].title);
 
-                          print(box.keys);
-                          print(box.values);
+                          print('프린트 박스키 : ${box.keys}');
+                          print('프린트 밸류 : ${box.values}');
                         },
                       ),
                     );
