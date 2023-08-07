@@ -1,16 +1,19 @@
 # day24
 
-A new Flutter project.
+## 🙋 배운내용
 
-## Getting Started
+### Serialization
 
-This project is a starting point for a Flutter application.
+# 24일차 과제 - 강아지사진활용
 
-A few resources to get you started if this is your first Flutter project:
+1. **다음의 공개된 API를 분석하고, 클래스를 활용하여 적용 후 
+강아지사진을 보여주는 앱을 다음과 같이 만드시오.**
+    - https://dog.ceo/api/breeds/image/random
+    
+    - 반드시 네트워크의 데이터를 받아와서 제작한 클래스에 적용하시오.
+    - 3개의 강아지 사진이 갤러리 형태로 나오도록 만드시오.
+    - 강아지 사진을 클릭하면 강아지 사진이 Dialog로 나오도록 만드시오.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## 🧑‍💻 결과
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![Alt text](<Simulator Screen Recording - iPhone 14 Pro Max - 2023-08-07 at 18.46.07.gif>)
