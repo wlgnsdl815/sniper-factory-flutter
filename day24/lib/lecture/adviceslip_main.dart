@@ -4,24 +4,23 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 
 class AdviceSlip {
-  Map<String, dynamic> slip;
+  int id;
+  String advice;
 
   AdviceSlip({
-    required this.slip,
+    required this.id,
+    required this.advice,
   });
 
-  int get id => slip['id'];
-  String get advice => slip['advice'];
-
   factory AdviceSlip.fromJson(Map<String, dynamic> json) {
-    Map<String, dynamic> slipData = json['slip'];
     return AdviceSlip(
-      slip: slipData,
+      id: json['id'],
+      advice: json['advice'],
     );
   }
 
   @override
-  String toString() => 'AdviceSlip: (slip: $slip, id: $id, advice: $advice)';
+  String toString() => 'AdviceSlip: (id: $id, advice: $advice)';
 }
 
 void main() async {
@@ -29,8 +28,11 @@ void main() async {
     Dio dio = Dio();
     String url = 'https://api.adviceslip.com/advice';
     var resp = await dio.get(url);
-    var result = AdviceSlip.fromJson(jsonDecode(resp.data));
-    print(result);
+    if (resp.statusCode == 200) {
+      var myData = jsonDecode(resp.data);
+      AdviceSlip slipData = AdviceSlip.fromJson(myData['slip']);
+      print(slipData);
+    }
   } catch (e) {
     throw Exception(e);
   }
