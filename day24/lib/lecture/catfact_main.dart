@@ -16,7 +16,7 @@ class CatFact {
       );
 
   @override
-  String toString() => 'CatFact: fact: $fact, length: $length';
+  String toString() => 'CatFact: (fact: $fact, length: $length)';
 }
 
 void main() async {
