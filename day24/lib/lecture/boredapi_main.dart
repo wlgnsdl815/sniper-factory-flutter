@@ -25,8 +25,7 @@ class BoredApi {
       activity: json['activity'],
       type: json['type'],
       participants: json['participants'],
-      // double.parse()안에는 String 값이 들어가야한다.
-      price: json['price'] is int ? double.parse(json['price']) : json['price'],
+      price: json['price'].toDouble(),
       link: json['link'] ?? '',
       key: json['key'],
       accessibility: json['accessibility'],
