@@ -25,9 +25,8 @@ class BoredApi {
       activity: json['activity'],
       type: json['type'],
       participants: json['participants'],
-      price: json['price'] is int
-          ? double.parse(json['price'].toString())
-          : json['price'],
+      // double.parse()안에는 String 값이 들어가야한다.
+      price: json['price'] is int ? double.parse(json['price']) : json['price'],
       link: json['link'] ?? '',
       key: json['key'],
       accessibility: json['accessibility'],
@@ -44,6 +43,7 @@ void main() async {
     String url = 'https://www.boredapi.com/api/activity';
     Response<Map<String, dynamic>> response = await dio.get(url);
     if (response.statusCode == 200) {
+      print('price: ${response.data!['price']}');
       print(response.data!['price'].runtimeType);
 
       BoredApi result = BoredApi.fromJson(response.data!);
