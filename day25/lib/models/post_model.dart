@@ -1,4 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+
+// Post 모델 클래스
 class Post {
   int userId;
   int id;
