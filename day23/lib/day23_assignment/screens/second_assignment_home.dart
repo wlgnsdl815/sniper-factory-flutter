@@ -2,14 +2,9 @@ import 'package:day23/day23_assignment/models/network_data.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
   Future<NetworkData> getData() async {
     try {
       Dio dio = Dio();
