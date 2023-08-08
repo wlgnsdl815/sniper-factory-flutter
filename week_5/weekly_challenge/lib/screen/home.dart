@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:weekly_challenge/components/custom_button.dart';
@@ -9,14 +8,26 @@ import 'package:weekly_challenge/models/email_model.dart';
 import 'package:weekly_challenge/screen/remove.dart';
 import 'package:weekly_challenge/services/email_service.dart';
 
-class HomeScreen extends ConsumerWidget {
+class HomeScreen extends StatefulWidget {
   HomeScreen({super.key});
 
-  bool isRead = false;
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
 
-  PageController _pageController = PageController();
+class _HomeScreenState extends State<HomeScreen> {
+  List<Email> _emailDataList = [];
+  bool _isSorted = true;
 
-  RefreshController _refreshController = RefreshController();
+  final PageController _pageController = PageController();
+
+  final RefreshController _refreshController = RefreshController();
+
+  @override
+  void initState() {
+    super.initState();
+    EmailService().getData();
+  }
 
   void _onRefresh() async {
     await Future.delayed(Duration(milliseconds: 1000));
@@ -24,8 +35,18 @@ class HomeScreen extends ConsumerWidget {
     _refreshController.refreshCompleted();
   }
 
+  void sortEmails(List<Email> emailList) {
+    setState(() {
+      _emailDataList.sort((a, b) => _isSorted
+          ? b.sendDate.compareTo(a.sendDate)
+          : a.sendDate.compareTo(b.sendDate));
+      // 정렬 상태를 반전시킵니다.
+      _isSorted = !_isSorted;
+    });
+  }
+
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     Box<String> box = Hive.box<String>(removedListBox);
     List<dynamic> filterData = box.keys.toList();
 
@@ -46,7 +67,10 @@ class HomeScreen extends ConsumerWidget {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              sortEmails(_emailDataList);
+              print(_emailDataList);
+            },
             icon: Icon(
               Icons.schedule,
               size: 30,
@@ -71,6 +95,7 @@ class HomeScreen extends ConsumerWidget {
                   (emailData) => !filterData.contains(emailData.from),
                 )
                 .toList();
+            _emailDataList = filteredDataList;
 
             return Padding(
               padding: const EdgeInsets.all(8.0),
@@ -86,23 +111,18 @@ class HomeScreen extends ConsumerWidget {
                     if (index == 0) {
                       return CustomButton();
                     }
+                    return CustomCard(
+                      // 필터링 된 리스트 전달
+                      emailData: filteredDataList[index],
+                      onDismissed: (direction) {
+                        Box box = Hive.box<String>(removedListBox);
+                        // box.clear();
+                        box.put(filteredDataList[index].from,
+                            filteredDataList[index].title);
 
-                    return GestureDetector(
-                      onTap: () {},
-                      child: CustomCard(
-                        isRead: isRead,
-                        // 필터링 된 리스트 전달
-                        emailData: filteredDataList[index],
-                        onDismissed: (DismissDirection) {
-                          Box box = Hive.box<String>(removedListBox);
-                          // box.clear();
-                          box.put(filteredDataList[index].from,
-                              filteredDataList[index].title);
-
-                          print('프린트 박스키 : ${box.keys}');
-                          print('프린트 밸류 : ${box.values}');
-                        },
-                      ),
+                        print('프린트 박스키 : ${box.keys}');
+                        print('프린트 밸류 : ${box.values}');
+                      },
                     );
                   }),
                 ),

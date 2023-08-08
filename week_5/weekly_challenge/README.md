@@ -33,3 +33,12 @@ https://sfacassignmentchallenge-default-rtdb.europe-west1.firebasedatabase.app/.
 9. 최상단 앱바를 클릭하면 자연스럽게 최상단으로 올라가게 됩니다.
 
 ## 🧑‍💻 결과
+
+![Alt text](<Simulator Screen Recording - iPhone 14 Pro Max - 2023-08-08 at 16.45.34.gif>)
+
+### ⭕️ 구현한 것
+1번, 2번, 3번, 4번, 5번, 8번, 9번
+
+### ❌ 구현하지 못한 것
+
+6번, 7번
