@@ -17,6 +17,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final RefreshController _refreshController = RefreshController();
+  final PageController _pageController = PageController();
   List<Email> deletedEmailList = [];
   List<Email> filteredEmailList = [];
 
@@ -35,12 +36,22 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
         elevation: 0.0,
-        title: Text(
-          '프로모션',
+        title: GestureDetector(
+          onTap: () {
+            _pageController.animateTo(0,
+                duration: Duration(milliseconds: 300), curve: Curves.easeIn);
+          },
+          child: Text(
+            '프로모션',
+          ),
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              setState(() {
+                filteredEmailList = filteredEmailList.reversed.toList();
+              });
+            },
             icon: Icon(
               Icons.schedule,
               size: 30.0,
@@ -64,6 +75,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 onRefresh: _onRefresh,
                 controller: _refreshController,
                 child: ListView.builder(
+                  controller: _pageController,
                   itemCount: filteredEmailList.length + 1,
                   itemBuilder: (context, index) {
                     if (index == 0) {
