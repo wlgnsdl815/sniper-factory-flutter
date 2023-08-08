@@ -1,16 +1,36 @@
-# second_challenge
+# 5주차 도전과제
 
-A new Flutter project.
+## 네이버 이메일 클론코딩
 
-## Getting Started
+디자인은 약간 달라도 괜찮으나 명시된 기능은 구현을 해야합니다.
 
-This project is a starting point for a Flutter application.
+도전하기는 필수평가는 아니지만, 제출시 추가 점수가 있을 수 있습니다. *
+https://sfacassignmentchallenge-default-rtdb.europe-west1.firebasedatabase.app/.json
 
-A few resources to get you started if this is your first Flutter project:
+의 데이터를 받아와서 사용하도록 합시다.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+모든 기능 구현하지 않아도 되고 부분점수 인정이 됩니다! 도전해보세요!
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+기능 목록
+
+1. 이메일의 목록을 사진 디자인과 같이 구현합니다.
+
+2. 이메일이 도착한 날이 오늘이라면 오늘, 어제라면 어제, 올해와 년도가 같다면 MM.dd , 년도가 다르다면 yyyy.MM.dd 로 보여져야합니다.
+
+3. 각 리스트는 swipe가 가능하며, 우측 스와이프로 삭제를 한다면, 휴지통으로 분류가 되며 현재 화면에는 보여지지 않습니다.
+
+4. 우측 하단 FAB은 작성하기 버튼이지만, 휴지통 아이콘을 넣어주세요. 클릭하면 휴지통에 추가된 리스트들이 보이는 화면을 구현해주세요.
+
+5. 우측상단에서 메일검색이 가능하며, 메일검색을 누르면 두번째 사진, 검색하는 화면이 등장하고 최근에 검색한 목록들이 등장합니다.
+
+6. 메일검색은 보낸사람을 기준으로 검색이 가능하게 합니다.
+
+7. 우측 상단 시계버튼을 누르면 메시지를 받은 최신순으로 정렬하게되고, 한번 더 누르게되면 오래된 순으로 보여지게 됩니다.
+
+8. pull to refresh를 한다면 이메일이 새로 업데이트가되며, 삭제한 이메일은 보이지 않습니다.
+
+9. 최상단 앱바를 클릭하면 자연스럽게 최상단으로 올라가게 됩니다.
+
+## 🧑‍💻 결과
+
+![Alt text](<Simulator Screen Recording - iPhone 14 Pro Max - 2023-08-09 at 01.45.40.gif>)

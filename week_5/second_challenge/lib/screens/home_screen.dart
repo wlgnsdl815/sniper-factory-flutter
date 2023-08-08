@@ -18,6 +18,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final RefreshController _refreshController = RefreshController();
   final PageController _pageController = PageController();
+  bool isReversed = false;
   List<Email> deletedEmailList = [];
   List<Email> filteredEmailList = [];
 
@@ -49,7 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
           IconButton(
             onPressed: () {
               setState(() {
-                filteredEmailList = filteredEmailList.reversed.toList();
+                isReversed = !isReversed;
               });
             },
             icon: Icon(
@@ -71,6 +72,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   .where((element) => !deletedEmailList
                       .any((deletedEmail) => deletedEmail.from == element.from))
                   .toList();
+              if (isReversed) {
+                filteredEmailList = filteredEmailList.reversed.toList();
+              }
               return SmartRefresher(
                 onRefresh: _onRefresh,
                 controller: _refreshController,
@@ -112,7 +116,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     }
                     if (index <= filteredEmailList.length) {
                       Email emailData = filteredEmailList[index - 1];
-
                       return Dismissible(
                         direction: DismissDirection.endToStart,
                         key: UniqueKey(),
