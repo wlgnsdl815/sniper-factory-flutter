@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 import 'dart:developer';
 
-import 'package:day24/models/dogs_data.dart';
+import 'package:day24/models/dog_data.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
@@ -11,20 +11,20 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // 화면에 그리기 전에 데이터를 담을 List
-    List<Dogs> dogsList = [];
+    List<Dog> dogsList = [];
 
     // StreamBuilder를 사용하기 위해서 async에 *을 붙여서 사용하면 된다.
-    Stream<List<Dogs>> getData() async* {
+    Stream<List<Dog>> getData() async* {
       try {
         Dio dio = Dio();
         String url = 'https://dog.ceo/api/breeds/image/random';
 
-        List<Dogs> dogsList = [];
+        List<Dog> dogsList = [];
 
         // 객체를 여러개 생성해서 dagsList에 담아준다.
         for (int i = 0; i < 99; i++) {
           Response<Map<String, dynamic>> response = await dio.get(url);
-          Dogs dogs = Dogs.fromMap(response.data!);
+          Dog dogs = Dog.fromMap(response.data!);
           dogsList.add(dogs);
           // return 대신에 yield 키워드
           yield dogsList;

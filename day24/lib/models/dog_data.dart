@@ -1,14 +1,14 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-class Dogs {
+class Dog {
   String message;
   String status;
 
-  Dogs({
+  Dog({
     required this.message,
     required this.status,
   });
 
-  factory Dogs.fromMap(Map<String, dynamic> map) => Dogs(
+  factory Dog.fromMap(Map<String, dynamic> map) => Dog(
         message: map['message'],
         status: map['status'],
       );
