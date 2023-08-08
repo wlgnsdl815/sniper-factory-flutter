@@ -1,14 +1,14 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:intl/intl.dart';
 
-class EmailData {
+class Email {
   String detail;
   int emailNo;
   String from;
   DateTime sendDate;
   String title;
 
-  EmailData({
+  Email({
     required this.detail,
     required this.emailNo,
     required this.from,
@@ -16,10 +16,10 @@ class EmailData {
     required this.title,
   });
 
-  factory EmailData.fromJson(Map<String, dynamic> json) {
+  factory Email.fromJson(Map<String, dynamic> json) {
     DateFormat dateFormat = DateFormat("yyyy.MM.dd"); // Define your date format
 
-    return EmailData(
+    return Email(
         detail: json['detail'],
         emailNo: json['emailNo'],
         from: json['from'],

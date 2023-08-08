@@ -1,12 +1,12 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:weekly_challenge/components/custom_button.dart';
 import 'package:weekly_challenge/components/custom_card.dart';
 import 'package:weekly_challenge/main.dart';
-import 'package:weekly_challenge/models/email_data.dart';
+import 'package:weekly_challenge/models/email_model.dart';
 import 'package:weekly_challenge/screen/remove.dart';
+import 'package:weekly_challenge/services/email_service.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -16,28 +16,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  Future? result;
   bool isRead = false;
   PageController _pageController = PageController();
-
-  @override
-  void initState() {
-    super.initState();
-    result = getData();
-  }
-
-  Future<Map<String, dynamic>> getData() async {
-    try {
-      Dio dio = Dio();
-      Response<dynamic> resp = await dio.get(
-        'https://sfacassignmentchallenge-default-rtdb.europe-west1.firebasedatabase.app/.json',
-      );
-
-      return resp.data;
-    } catch (e) {
-      throw Exception(e);
-    }
-  }
 
   RefreshController _refreshController = RefreshController();
 
@@ -80,22 +60,17 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       drawer: Drawer(),
       body: FutureBuilder(
-        future: result,
+        future: EmailService().getData(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            List<Map<String, dynamic>> dataList =
-                List<Map<String, dynamic>>.from(snapshot.data['emails']);
-            // future를 통해 받아온 데이터
-            print('데이터 리스트 : $dataList');
+            List<Email> emailDataList = snapshot.data!;
 
-            List<EmailData> emailDataList =
-                dataList.map((e) => EmailData.fromJson(e)).toList();
-            // 모델링 작업 후 다시 리스트에 담아준 이메일 데이터 리스트 Instance of 'EmailData'가 찍히므로 성공
+            // 모델링 작업 후 다시 리스트에 담아준 이메일 데이터 리스트 Instance of 'Email'가 찍히므로 성공
             print('이메일 데이터 리스트 : $emailDataList');
             // 삭제한 값이 담긴 데이터 리스트
             print('휴지통 데이터 : $filterData');
             // 휴지통에 있는 값들이 emailData.from과 일치하지 않는 것만 필터링 = 휴지통에 없는 값만 필터링
-            List<EmailData> filteredDataList = emailDataList
+            List<Email> filteredDataList = emailDataList
                 .where(
                   (emailData) => !filterData.contains(emailData.from),
                 )

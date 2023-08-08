@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:weekly_challenge/models/email_data.dart';
+import 'package:weekly_challenge/models/email_model.dart';
 
 class CustomCard extends StatelessWidget {
   final Function(DismissDirection) onDismissed;
@@ -12,7 +12,7 @@ class CustomCard extends StatelessWidget {
   });
 
   final bool isRead;
-  final EmailData emailData;
+  final Email emailData;
 
   @override
   Widget build(BuildContext context) {
