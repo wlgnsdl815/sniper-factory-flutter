@@ -3,15 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:weekly_assessment/second_assignment/models/user_data.dart';
 
-class Assignment23 extends StatefulWidget {
+class Assignment23 extends StatelessWidget {
   const Assignment23({super.key});
-  @override
-  State<Assignment23> createState() => _Assignment23State();
-}
-
-class _Assignment23State extends State<Assignment23> {
-  Future? result;
-
   Future<Map<String, dynamic>> getJsonData() async {
     try {
       Dio dio = Dio();
@@ -21,12 +14,6 @@ class _Assignment23State extends State<Assignment23> {
     } catch (e) {
       throw Exception(e);
     }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    result = getJsonData();
   }
 
   @override

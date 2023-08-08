@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:weekly_assessment/first_assignment/models/article_data.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class HomeScreen extends StatelessWidget {
+  HomeScreen({super.key});
 
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
   List<Article> articles =
       articleDataList.map((e) => Article.fromMap(e)).toList();
 
