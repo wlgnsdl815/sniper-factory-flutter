@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:weekly_challenge/screen/home.dart';
 import 'package:weekly_challenge/services/email_service.dart';
@@ -11,7 +12,7 @@ void main() async {
   await Hive.openBox<String>(searchListBox);
   await Hive.openBox<String>(removedListBox);
 
-  return runApp(MyApp());
+  return runApp(ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {

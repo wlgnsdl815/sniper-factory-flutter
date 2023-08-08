@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:weekly_challenge/components/custom_button.dart';
@@ -7,16 +8,13 @@ import 'package:weekly_challenge/main.dart';
 import 'package:weekly_challenge/models/email_model.dart';
 import 'package:weekly_challenge/screen/remove.dart';
 import 'package:weekly_challenge/services/email_service.dart';
+import 'package:weekly_challenge/state/email_notifier.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class HomeScreen extends ConsumerWidget {
+  HomeScreen({super.key});
 
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
   bool isRead = false;
+
   PageController _pageController = PageController();
 
   RefreshController _refreshController = RefreshController();
@@ -25,11 +23,11 @@ class _HomeScreenState extends State<HomeScreen> {
     await Future.delayed(Duration(milliseconds: 1000));
 
     _refreshController.refreshCompleted();
-    setState(() {});
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    ref.watch(emailProvider);
     Box<String> box = Hive.box<String>(removedListBox);
     List<dynamic> filterData = box.keys.toList();
 
