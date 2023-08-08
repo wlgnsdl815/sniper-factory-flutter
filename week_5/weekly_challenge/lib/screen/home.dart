@@ -8,7 +8,6 @@ import 'package:weekly_challenge/main.dart';
 import 'package:weekly_challenge/models/email_model.dart';
 import 'package:weekly_challenge/screen/remove.dart';
 import 'package:weekly_challenge/services/email_service.dart';
-import 'package:weekly_challenge/state/email_notifier.dart';
 
 class HomeScreen extends ConsumerWidget {
   HomeScreen({super.key});
@@ -27,7 +26,6 @@ class HomeScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.watch(emailProvider);
     Box<String> box = Hive.box<String>(removedListBox);
     List<dynamic> filterData = box.keys.toList();
 
