@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:second_challenge/components/custom_circle_avatar.dart';
 import 'package:second_challenge/models/email_model.dart';
 import 'package:second_challenge/screens/deleted_screen.dart';
 import 'package:second_challenge/screens/search_screen.dart';
@@ -116,83 +117,86 @@ class _HomeScreenState extends State<HomeScreen> {
                             color: Colors.white,
                           ),
                         ),
-                        child: Card(
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  children: [
-                                    CircleAvatar(
-                                      backgroundColor: Colors.green,
-                                      radius: 4,
-                                    ),
-                                    SizedBox(width: 10),
-                                    Text(
-                                      emailData.from,
-                                      style: TextStyle(
-                                        fontSize: 25.0,
-                                        fontWeight: FontWeight.bold,
+                        child: InkWell(
+                          onTap: () {},
+                          child: Card(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    children: [
+                                      CircleAvatar(
+                                        backgroundColor: Colors.green,
+                                        radius: 4,
                                       ),
-                                    ),
-                                    Expanded(child: SizedBox()),
-                                    Text(
-                                      formatDate(emailData.sendDate),
+                                      SizedBox(width: 10),
+                                      Text(
+                                        emailData.from,
+                                        style: TextStyle(
+                                          fontSize: 25.0,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      Expanded(child: SizedBox()),
+                                      Text(
+                                        formatDate(emailData.sendDate),
+                                        style: TextStyle(
+                                          color: primaryColor,
+                                        ),
+                                      ),
+                                      SizedBox(width: 10),
+                                      Icon(
+                                        Icons.star,
+                                        color: primaryColor,
+                                      )
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Container(
+                                        margin: EdgeInsets.all(
+                                          8.0,
+                                        ),
+                                        width: 35,
+                                        height: 20,
+                                        decoration: BoxDecoration(
+                                          color: Colors.grey,
+                                          borderRadius: BorderRadius.circular(
+                                            10,
+                                          ),
+                                        ),
+                                        child: Text(
+                                          'TO',
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ),
+                                      Text(
+                                        emailData.title,
+                                        style: TextStyle(
+                                          fontSize: 20.0,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(height: 10.0),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      emailData.detail,
                                       style: TextStyle(
+                                        fontSize: 15.0,
                                         color: primaryColor,
                                       ),
                                     ),
-                                    SizedBox(width: 10),
-                                    Icon(
-                                      Icons.star,
-                                      color: primaryColor,
-                                    )
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    Container(
-                                      margin: EdgeInsets.all(
-                                        8.0,
-                                      ),
-                                      width: 35,
-                                      height: 20,
-                                      decoration: BoxDecoration(
-                                        color: Colors.grey,
-                                        borderRadius: BorderRadius.circular(
-                                          10,
-                                        ),
-                                      ),
-                                      child: Text(
-                                        'TO',
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                    ),
-                                    Text(
-                                      emailData.title,
-                                      style: TextStyle(
-                                        fontSize: 20.0,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(height: 10.0),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                    emailData.detail,
-                                    style: TextStyle(
-                                      fontSize: 15.0,
-                                      color: primaryColor,
-                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                         ),
