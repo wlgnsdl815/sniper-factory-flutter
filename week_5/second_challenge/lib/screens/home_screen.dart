@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:second_challenge/components/custom_circle_avatar.dart';
 import 'package:second_challenge/models/email_model.dart';
 import 'package:second_challenge/screens/deleted_screen.dart';
 import 'package:second_challenge/screens/search_screen.dart';
