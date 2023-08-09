@@ -59,6 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   onPressed: () {
                     setState(() {
                       refreshData = TodoService().getData();
+                      removedList = [];
                     });
                   },
                   icon: Icon(Icons.refresh),
@@ -71,12 +72,14 @@ class _HomeScreenState extends State<HomeScreen> {
       body: FutureBuilder(
         future: refreshData,
         builder: (context, snapshot) {
-          if (snapshot.hasData) {
+          if (snapshot.connectionState == ConnectionState.done) {
             List<Todo> todoDataList = snapshot.data!;
+
             filteredList = todoDataList
                 .where((element) => !removedList
                     .any((removedData) => removedData.id == element.id))
                 .toList();
+
             switch (_todoFilterStatus) {
               case TodoFilter.all:
                 return TodoListView(
