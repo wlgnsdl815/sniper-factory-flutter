@@ -1,14 +1,23 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables
 
 import 'dart:ui';
+import 'package:day26/components/filter_bottom_sheet.dart';
 import 'package:day26/components/todo_card.dart';
 import 'package:day26/models/todo_model.dart';
-import 'package:day26/services/todo_servive.dart';
+import 'package:day26/services/todo_service.dart';
 import 'package:flutter/material.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  TodoFilter _todoFilterStatus = TodoFilter.all;
+  List<Todo> removedList = [];
+  List<Todo> filteredList = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,10 +34,24 @@ class HomeScreen extends StatelessWidget {
               foregroundColor: Colors.black,
               title: Text('Todo App'),
               actions: [
-                IconButton(
-                  onPressed: () {},
-                  icon: Icon(Icons.filter_list),
-                ),
+                Builder(builder: (context) {
+                  return IconButton(
+                    onPressed: () {
+                      showBottomSheet(
+                        context: context,
+                        builder: (context) => FilterBottomSheet(
+                          filter: _todoFilterStatus,
+                          onApply: (todoFilter) {
+                            setState(() {
+                              _todoFilterStatus = todoFilter;
+                            });
+                          },
+                        ),
+                      );
+                    },
+                    icon: Icon(Icons.filter_list),
+                  );
+                }),
                 IconButton(
                   onPressed: () {},
                   icon: Icon(Icons.refresh),
@@ -42,11 +65,24 @@ class HomeScreen extends StatelessWidget {
         future: TodoService().getData(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
+            List<Todo> todoDataList = snapshot.data!;
+            filteredList = todoDataList
+                .where((element) => !removedList
+                    .any((removedData) => removedData.id == element.id))
+                .toList();
+
             return ListView.builder(
-              itemCount: snapshot.data!.length,
+              itemCount: filteredList.length,
               itemBuilder: (context, index) {
-                Todo todo = snapshot.data![index];
-                return TodoCard(todo: todo);
+                Todo todo = filteredList[index];
+                return TodoCard(
+                  todo: todo,
+                  onDismissed: (direction) {
+                    removedList.add(todo);
+                    filteredList.remove(todo);
+                    print(filteredList.length);
+                  },
+                );
               },
             );
           }
