@@ -5,6 +5,7 @@ class TodoService {
   Future<List<Todo>> getData() async {
     try {
       Dio dio = Dio();
+
       Response response =
           await dio.get('https://jsonplaceholder.typicode.com/todos');
       if (response.statusCode == 200) {

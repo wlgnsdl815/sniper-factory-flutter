@@ -2,7 +2,6 @@
 
 import 'dart:ui';
 import 'package:day26/components/filter_bottom_sheet.dart';
-import 'package:day26/components/todo_card.dart';
 import 'package:day26/components/todo_listview.dart';
 import 'package:day26/models/todo_model.dart';
 import 'package:day26/services/todo_service.dart';
@@ -19,6 +18,9 @@ class _HomeScreenState extends State<HomeScreen> {
   TodoFilter _todoFilterStatus = TodoFilter.all;
   List<Todo> removedList = [];
   List<Todo> filteredList = [];
+
+  Future<List<Todo>> refreshData = TodoService().getData();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,7 +56,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   );
                 }),
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    setState(() {
+                      refreshData = TodoService().getData();
+                    });
+                  },
                   icon: Icon(Icons.refresh),
                 ),
               ],
@@ -63,7 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       body: FutureBuilder(
-        future: TodoService().getData(),
+        future: refreshData,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             List<Todo> todoDataList = snapshot.data!;
