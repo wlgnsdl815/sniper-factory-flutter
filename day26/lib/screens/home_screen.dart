@@ -3,6 +3,7 @@
 import 'dart:ui';
 import 'package:day26/components/filter_bottom_sheet.dart';
 import 'package:day26/components/todo_card.dart';
+import 'package:day26/components/todo_listview.dart';
 import 'package:day26/models/todo_model.dart';
 import 'package:day26/services/todo_service.dart';
 import 'package:flutter/material.dart';
@@ -70,21 +71,29 @@ class _HomeScreenState extends State<HomeScreen> {
                 .where((element) => !removedList
                     .any((removedData) => removedData.id == element.id))
                 .toList();
-
-            return ListView.builder(
-              itemCount: filteredList.length,
-              itemBuilder: (context, index) {
-                Todo todo = filteredList[index];
-                return TodoCard(
-                  todo: todo,
-                  onDismissed: (direction) {
-                    removedList.add(todo);
-                    filteredList.remove(todo);
-                    print(filteredList.length);
-                  },
+            switch (_todoFilterStatus) {
+              case TodoFilter.all:
+                return TodoListView(
+                  filteredList: filteredList,
+                  removedList: removedList,
                 );
-              },
-            );
+
+              case TodoFilter.completed:
+                List<Todo> completedList =
+                    filteredList.where((todos) => todos.completed).toList();
+                return TodoListView(
+                  filteredList: completedList,
+                  removedList: removedList,
+                );
+
+              case TodoFilter.incompleted:
+                List<Todo> incompletedList =
+                    filteredList.where((todos) => !todos.completed).toList();
+                return TodoListView(
+                  filteredList: incompletedList,
+                  removedList: removedList,
+                );
+            }
           }
           return Center(child: CircularProgressIndicator());
         },
