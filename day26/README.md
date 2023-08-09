@@ -152,4 +152,5 @@ class TodoCard extends StatelessWidget {
 ```
 
 ## 🧑‍💻 결과            
-            
+
+![Alt text](<Simulator Screen Recording - iPhone 14 Pro Max - 2023-08-09 at 17.15.31.gif>)
