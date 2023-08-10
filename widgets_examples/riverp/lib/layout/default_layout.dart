@@ -19,7 +19,10 @@ class DefaultLayout extends StatelessWidget {
         title: Text(title),
         actions: actions,
       ),
-      body: body,
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: body,
+      ),
     );
   }
 }

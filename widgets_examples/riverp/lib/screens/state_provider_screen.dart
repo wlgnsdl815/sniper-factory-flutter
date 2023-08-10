@@ -35,7 +35,7 @@ class StateProviderScreen extends ConsumerWidget {
               onPressed: () {
                 // .state는 provider 값을 직접 가져온다.
                 ref.read(numberProvider.notifier).state =
-                    ref.read(numberProvider.notifier).state + 1;
+                    ref.read(numberProvider.notifier).state - 1;
               },
               child: Text('DOWN'),
             ),
