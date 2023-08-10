@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:riverp/layout/default_layout.dart';
+import 'package:riverp/screens/future_provider_screen.dart';
 import 'package:riverp/screens/state_notifier_provider_screen.dart';
 import 'package:riverp/screens/state_provider_screen.dart';
 
@@ -33,6 +34,13 @@ class HomeScreen extends StatelessWidget {
                         builder: (_) => StateNotifierProviderScreen()));
               },
               child: Text('State Notifier Provider Screen'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (_) => FutureProviderScreen()));
+              },
+              child: Text('Future Provider Screen'),
             ),
           ],
         ),
