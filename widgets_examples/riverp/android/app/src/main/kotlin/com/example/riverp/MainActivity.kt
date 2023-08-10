@@ -1,0 +1,6 @@
+package com.example.riverp
+
+import io.flutter.embedding.android.FlutterActivity
+
+class MainActivity: FlutterActivity() {
+}
