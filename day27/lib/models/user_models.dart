@@ -61,6 +61,7 @@ class User {
   String name;
   String username;
   String email;
+  Address address;
   String phone;
   String website;
   Company company;
@@ -70,6 +71,7 @@ class User {
     required this.name,
     required this.username,
     required this.email,
+    required this.address,
     required this.phone,
     required this.website,
     required this.company,
@@ -83,5 +85,6 @@ class User {
         phone: json['phone'],
         website: json['website'],
         company: Company.fromJson(json['company']),
+        address: Address.fromJson(json['address']),
       );
 }

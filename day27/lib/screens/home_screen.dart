@@ -25,10 +25,11 @@ class HomeScreen extends StatelessWidget {
               itemCount: snapshot.data!.length,
               itemBuilder: ((context, index) {
                 User user = snapshot.data![index];
+                String imgUrl =
+                    'https://xsgames.co/randomusers/assets/avatars/male/${user.id}.jpg';
                 return ListTile(
                   leading: CircleAvatar(
-                    backgroundImage: NetworkImage(
-                        'https://xsgames.co/randomusers/assets/avatars/male/${user.id}.jpg'),
+                    backgroundImage: NetworkImage(imgUrl),
                   ),
                   title: Text(user.name),
                   subtitle: Text(user.email),
@@ -37,7 +38,10 @@ class HomeScreen extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (_) => DetailScreen(title: user.name)));
+                              builder: (_) => DetailScreen(
+                                    user: user,
+                                    imgUrl: imgUrl,
+                                  )));
                     },
                     icon: Icon(Icons.navigate_next),
                   ),
