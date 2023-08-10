@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables
 
+import 'package:animate_do/animate_do.dart';
 import 'package:day27/models/user_models.dart';
 import 'package:day27/screens/detail_screen.dart';
 import 'package:day27/services/user_service.dart';
@@ -27,14 +28,10 @@ class HomeScreen extends StatelessWidget {
                 User user = snapshot.data![index];
                 String imgUrl =
                     'https://xsgames.co/randomusers/assets/avatars/male/${user.id}.jpg';
-                return ListTile(
-                  leading: CircleAvatar(
-                    backgroundImage: NetworkImage(imgUrl),
-                  ),
-                  title: Text(user.name),
-                  subtitle: Text(user.email),
-                  trailing: IconButton(
-                    onPressed: () {
+                return FadeInRight(
+                  delay: Duration(milliseconds: 200 * index),
+                  child: GestureDetector(
+                    onTap: () {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -43,7 +40,16 @@ class HomeScreen extends StatelessWidget {
                                     imgUrl: imgUrl,
                                   )));
                     },
-                    icon: Icon(Icons.navigate_next),
+                    child: ListTile(
+                      leading: CircleAvatar(
+                        backgroundImage: NetworkImage(imgUrl),
+                      ),
+                      title: Text(user.name),
+                      subtitle: Text(user.email),
+                      trailing: Icon(
+                        (Icons.navigate_next),
+                      ),
+                    ),
                   ),
                 );
               }),

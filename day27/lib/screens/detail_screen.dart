@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:day27/models/user_models.dart';
 import 'package:flutter/material.dart';
 
@@ -44,59 +45,15 @@ class DetailScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      user.name,
-                      style: TextStyle(
-                        color: Colors.grey[700],
-                        fontSize: 35.0,
-                        height: 2.5,
-                      ),
-                    ),
-                    Divider(
-                      color: Colors.grey,
-                      height: 50,
-                    ),
-                    Text(
-                      'Information',
-                      style: textStyle,
-                    ),
-                    SizedBox(height: 10.0),
-                    Row(
-                      children: [
-                        Icon(Icons.email),
-                        Text(user.email),
-                      ],
-                    ),
-                    SizedBox(height: 10.0),
-                    Row(
-                      children: [
-                        Icon(Icons.call),
-                        Text(user.phone),
-                      ],
-                    ),
-                    SizedBox(height: 10.0),
-                    Row(
-                      children: [
-                        Icon(Icons.location_on),
-                        Text(
-                          '${user.address.city}, ${user.address.street}, ${user.address.suite}',
-                        ),
-                      ],
-                    ),
-                    Divider(
-                      color: Colors.grey,
-                      height: 50,
-                    ),
-                    Text(
-                      'Company',
-                      style: textStyle,
-                    ),
-                    SizedBox(height: 10.0),
-                    Text(user.company.name),
-                    SizedBox(height: 10.0),
-                    Text(user.company.catchPhrase),
-                    SizedBox(height: 10.0),
-                    Text(user.company.bs),
+                    FadeIn(
+                        delay: Duration(milliseconds: 200),
+                        child: _renderName()),
+                    FadeIn(
+                        delay: Duration(milliseconds: 400),
+                        child: _renderInfo(textStyle)),
+                    FadeIn(
+                        delay: Duration(milliseconds: 600),
+                        child: _renderCompany(textStyle)),
                   ],
                 ),
               ),
@@ -112,6 +69,83 @@ class DetailScreen extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  Column _renderName() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          user.name,
+          style: TextStyle(
+            color: Colors.grey[700],
+            fontSize: 30.0,
+            height: 2.5,
+          ),
+        ),
+        Divider(
+          color: Colors.grey,
+          height: 50,
+        ),
+      ],
+    );
+  }
+
+  Column _renderInfo(TextStyle textStyle) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Information',
+          style: textStyle,
+        ),
+        SizedBox(height: 10.0),
+        Row(
+          children: [
+            Icon(Icons.email),
+            Text(user.email),
+          ],
+        ),
+        SizedBox(height: 10.0),
+        Row(
+          children: [
+            Icon(Icons.call),
+            Text(user.phone),
+          ],
+        ),
+        SizedBox(height: 10.0),
+        Row(
+          children: [
+            Icon(Icons.location_on),
+            Text(
+              '${user.address.city}, ${user.address.street}, ${user.address.suite}',
+            ),
+          ],
+        ),
+        Divider(
+          color: Colors.grey,
+          height: 50,
+        ),
+      ],
+    );
+  }
+
+  Column _renderCompany(TextStyle textStyle) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Company',
+          style: textStyle,
+        ),
+        SizedBox(height: 10.0),
+        Text(user.company.name),
+        SizedBox(height: 10.0),
+        Text(user.company.catchPhrase),
+        SizedBox(height: 10.0),
+        Text(user.company.bs),
+      ],
     );
   }
 }
