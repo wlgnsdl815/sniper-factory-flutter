@@ -3,7 +3,7 @@ class Definition {
   final String definition;
   final List<String> synonyms;
   final List<String> antonyms;
-  String? example;
+  final String? example;
 
   Definition({
     required this.definition,

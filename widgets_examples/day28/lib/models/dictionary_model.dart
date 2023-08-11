@@ -5,7 +5,7 @@ import 'package:day28/models/phonetic_model.dart';
 
 class Dictionary {
   final String word;
-  final String phonetic;
+  final String? phonetic;
   final List<Phonetic> phonetics;
   final List<Meaning> meanings;
   final License license;
@@ -13,7 +13,7 @@ class Dictionary {
 
   Dictionary({
     required this.word,
-    required this.phonetic,
+    this.phonetic,
     required this.phonetics,
     required this.meanings,
     required this.license,

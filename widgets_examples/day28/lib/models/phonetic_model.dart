@@ -2,22 +2,23 @@
 import 'package:day28/models/license_model.dart';
 
 class Phonetic {
-  final String text;
+  final String? text;
   final String audio;
-  final String sourceUrl;
-  final License license;
+  final String? sourceUrl;
+  final License? license;
 
   Phonetic({
-    required this.text,
     required this.audio,
-    required this.sourceUrl,
     required this.license,
+    this.text,
+    this.sourceUrl,
   });
 
   factory Phonetic.fromJson(Map<String, dynamic> json) => Phonetic(
         text: json['text'],
         audio: json['audio'],
         sourceUrl: json['sourceUrl'],
-        license: License.fromJson(json['license']),
+        license:
+            json['license'] != null ? License.fromJson(json['license']) : null,
       );
 }

@@ -2,8 +2,8 @@
 import 'package:day28/models/definition_model.dart';
 
 class Meaning {
-  String partOfSpeech;
-  List<Definition> definitions;
+  final String partOfSpeech;
+  final List<Definition> definitions;
 
   Meaning({
     required this.partOfSpeech,

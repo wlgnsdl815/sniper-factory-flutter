@@ -1,4 +1,4 @@
-import 'package:day28/screens/home_screen.dart';
+import 'package:day28/screens/main_page.dart';
 import 'package:day28/services/dictionary_service.dart';
 import 'package:flutter/material.dart';
 
@@ -9,9 +9,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    DictionaryService().getData();
+    DictionaryService().getData('meet');
     return MaterialApp(
-      home: HomeScreen(),
+      theme: ThemeData.dark(),
+      home: MainPage(),
     );
   }
 }
