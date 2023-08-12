@@ -1,22 +1,16 @@
 # weekly_assessment
 
-## 플러터 | 6주차 주간과제 (자체 기획앱)
+A new Flutter project.
 
+## Getting Started
 
-본 주간과제는 자체 기획 과제이기 때문에
-완성결과에 맞는 평가기준이 없기 때문에 상대평가로 이루어집니다.
+This project is a starting point for a Flutter application.
 
-선택한 API의 난이도가 평가 점수에 반영될 수 있습니다.
+A few resources to get you started if this is your first Flutter project:
 
-1. **아래는 공개된 API의 리스트를 공유하는 Github 문서이다.
-아래의 링크에 들어가서, 공개되어있는 API중 하나를 분석하고 직접 기획하여 본인이 기획한 어플을 제작하시오.**
-    - https://github.com/public-apis/public-apis
+- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
+- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-1. **기획 과제내용을 간단히 2-3줄로 설명하여 제출하시오.
-이 때 해결 과정을 함께 포함하여 정리하시오.**
-**(어려웠던 내용과 헤맸던 내용이 있다면 반드시 기재할 것)**
-
-2. **다음의 조건을 반드시 만족할 것.**
-    - 페이지는 두 페이지 이상이어야 하며 네비게이션을 활용하여 페이지 이동이 포함될 것
-    - 클래스를 작성하여 Serialization이 적용될 수 있도록 할 것
-    - 적절한 애니메이션 효과를 포함할 것
+For help getting started with Flutter development, view the
+[online documentation](https://docs.flutter.dev/), which offers tutorials,
+samples, guidance on mobile development, and a full API reference.
