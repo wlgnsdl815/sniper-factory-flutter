@@ -36,6 +36,7 @@ class RestaurantListScreen extends ConsumerWidget {
                       MaterialPageRoute(
                           // 위도와 경도를 넘겨주어서 카메라 포지션을 정해준다.
                           builder: (_) => NaviScreen(
+                                zoom: 18,
                                 cameraPosition: NLatLng(restaurant[index].LAT!,
                                     restaurant[index].LNG!),
                               )));

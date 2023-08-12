@@ -23,6 +23,7 @@ class HomeScreen extends StatelessWidget {
                     MaterialPageRoute(
                         // 지도로 보기를 누르면 기본 카메라 포지션을 넘겨준다.
                         builder: (_) => NaviScreen(
+                              zoom: 11,
                               cameraPosition: initCameraPosition,
                             )));
               },

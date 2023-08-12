@@ -7,9 +7,12 @@ import 'package:weekly_assessment/styles/default_layout.dart';
 
 // riverpod 사용을 위해 ConsumerWidget으로 변경
 class NaviScreen extends ConsumerWidget {
+  final double zoom;
   final NLatLng cameraPosition;
+
   const NaviScreen({
     super.key,
+    required this.zoom,
     required this.cameraPosition,
   });
 
@@ -17,8 +20,6 @@ class NaviScreen extends ConsumerWidget {
   // ref를 받아준다
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(restaurantApiProvider);
-    // 초기 카메라 포지션
-
     final Set<NMarker> markers = {};
 
     // state의 값으로 markers에 담아준다.
@@ -42,7 +43,7 @@ class NaviScreen extends ConsumerWidget {
           // 카메라 포지션을 지정
           initialCameraPosition: NCameraPosition(
             target: cameraPosition,
-            zoom: 11,
+            zoom: zoom,
           ),
         ),
       ),
