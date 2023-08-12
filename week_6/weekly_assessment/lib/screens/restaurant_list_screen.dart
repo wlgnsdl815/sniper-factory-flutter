@@ -3,6 +3,7 @@ import 'package:flutter_naver_map/flutter_naver_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:weekly_assessment/riverpod/restaurant_api_provider.dart';
 import 'package:weekly_assessment/screens/navi_screen.dart';
+import 'package:weekly_assessment/styles/default_layout.dart';
 
 class RestaurantListScreen extends ConsumerWidget {
   const RestaurantListScreen({super.key});
@@ -10,18 +11,8 @@ class RestaurantListScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(restaurantApiProvider);
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.green,
-        elevation: 0.0,
-        title: Text(
-          '🍽️ 맛집 지도 리스트 🍽️',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
+    return DefaultLayOut(
+      title: '🍽️ 부산 맛집 리스트 🍽️',
       body: state.when(
         data: (restaurant) {
           return ListView.separated(
@@ -43,6 +34,7 @@ class RestaurantListScreen extends ConsumerWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
+                          // 위도와 경도를 넘겨주어서 카메라 포지션을 정해준다.
                           builder: (_) => NaviScreen(
                                 cameraPosition: NLatLng(restaurant[index].LAT!,
                                     restaurant[index].LNG!),

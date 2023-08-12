@@ -3,6 +3,7 @@ import 'package:flutter_naver_map/flutter_naver_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:weekly_assessment/models/item_model.dart';
 import 'package:weekly_assessment/riverpod/restaurant_api_provider.dart';
+import 'package:weekly_assessment/styles/default_layout.dart';
 
 // riverpod 사용을 위해 ConsumerWidget으로 변경
 class NaviScreen extends ConsumerWidget {
@@ -13,7 +14,7 @@ class NaviScreen extends ConsumerWidget {
   });
 
   @override
-  //  ref를 받아준다
+  // ref를 받아준다
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(restaurantApiProvider);
     // 초기 카메라 포지션
@@ -31,23 +32,14 @@ class NaviScreen extends ConsumerWidget {
       markers.addAll(newMarkers);
     }
 
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.green,
-        elevation: 0.0,
-        title: Text(
-          '🍽️ 맛집 지도 리스트 🍽️',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
+    return DefaultLayOut(
+      title: '🍽️ 부산 맛집 지도 🍽️',
       body: NaverMap(
         onMapReady: (controller) {
           controller.addOverlayAll(markers);
         },
         options: NaverMapViewOptions(
+          // 카메라 포지션을 지정
           initialCameraPosition: NCameraPosition(
             target: cameraPosition,
             zoom: 11,
