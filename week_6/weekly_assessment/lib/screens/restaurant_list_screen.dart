@@ -26,7 +26,7 @@ class RestaurantListScreen extends ConsumerWidget {
               leading:
                   Image.network(restaurant[index].MAIN_IMG_THUMB.toString()),
               title: Text(
-                restaurant[index].TITLE.toString(),
+                restaurant[index].MAIN_TITLE.toString(),
               ),
               subtitle: Text(restaurant[index].ADDR1.toString()),
               trailing: IconButton(

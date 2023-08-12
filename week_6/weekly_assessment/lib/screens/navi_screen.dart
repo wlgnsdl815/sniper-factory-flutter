@@ -27,11 +27,49 @@ class NaviScreen extends ConsumerWidget {
       List<Item> itemList = state.value;
       markers.clear();
       Set<NMarker> newMarkers = itemList.map((item) {
-        return NMarker(
+        NMarker marker = NMarker(
           id: '${item.UC_SEQ}',
           position: NLatLng(item.LAT!, item.LNG!),
-          caption: NOverlayCaption(text: item.TITLE!),
+          caption: NOverlayCaption(text: item.MAIN_TITLE!),
         );
+        marker.setOnTapListener((overlay) {
+          return showModalBottomSheet(
+              context: context,
+              builder: (context) {
+                return Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        item.MAIN_TITLE!,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 30.0,
+                        ),
+                      ),
+                      SizedBox(height: 10.0),
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(16.0),
+                        ),
+                        clipBehavior: Clip.antiAlias,
+                        child: Image.network(
+                          item.MAIN_IMG_NORMAL!,
+                        ),
+                      ),
+                      SizedBox(height: 10.0),
+                      Text('주소: ${item.ADDR1}'),
+                      SizedBox(height: 10.0),
+                      Text('전화번호: ${item.CNTCT_TEL}'),
+                      SizedBox(height: 10.0),
+                      Text('소개: ${item.ITEMCNTNTS}'),
+                    ],
+                  ),
+                );
+              });
+        });
+        return marker;
       }).toSet();
       markers.addAll(newMarkers);
     }
