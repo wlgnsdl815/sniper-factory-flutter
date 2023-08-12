@@ -28,11 +28,16 @@ class NaviScreen extends ConsumerWidget {
       markers.clear();
       Set<NMarker> newMarkers = itemList.map((item) {
         return NMarker(
-            id: '${item.UC_SEQ}', position: NLatLng(item.LAT!, item.LNG!));
+          id: '${item.UC_SEQ}',
+          position: NLatLng(item.LAT!, item.LNG!),
+          caption: NOverlayCaption(text: item.TITLE!),
+        );
       }).toSet();
       markers.addAll(newMarkers);
     }
-
+    // final NMarker marker1 =
+    //     NMarker(id: 'id', position: NLatLng(35.1796, 129.0756));
+    // marker1.setCaption(NOverlayCaption(text: 'text'));
     return DefaultLayOut(
       title: '🍽️ 부산 맛집 지도 🍽️',
       body: NaverMap(
