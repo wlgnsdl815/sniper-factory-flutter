@@ -78,15 +78,27 @@ class NaviScreen extends ConsumerWidget {
     // marker1.setCaption(NOverlayCaption(text: 'text'));
     return DefaultLayOut(
       title: '🍽️ 부산 맛집 지도 🍽️',
-      body: NaverMap(
-        onMapReady: (controller) {
-          controller.addOverlayAll(markers);
-        },
-        options: NaverMapViewOptions(
-          // 카메라 포지션을 지정
-          initialCameraPosition: NCameraPosition(
-            target: cameraPosition,
-            zoom: zoom,
+      body: state.when(
+        data: (data) => NaverMap(
+          onMapReady: (controller) {
+            controller.addOverlayAll(markers);
+          },
+          options: NaverMapViewOptions(
+            // 카메라 포지션을 지정
+            initialCameraPosition: NCameraPosition(
+              target: cameraPosition,
+              zoom: zoom,
+            ),
+          ),
+        ),
+        error: (error, stack) => throw Exception(error),
+        loading: () => Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('네이버 맵 로딩 중입니다.'),
+              CircularProgressIndicator(),
+            ],
           ),
         ),
       ),

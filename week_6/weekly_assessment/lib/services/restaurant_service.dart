@@ -8,7 +8,7 @@ class RestaurantService {
     try {
       Dio dio = Dio();
       Response resp = await dio.get(
-        'http://apis.data.go.kr/6260000/FoodService/getFoodKr?serviceKey=mNJnf3ilbQOpYA70ByDce1j4lkvdkk%2FoaJqvptZBtjYhLea5zKdcUcaBKrW6gf5hgiqQqVq20fpkV6GdydzajA%3D%3D&resultType=json',
+        'http://apis.data.go.kr/6260000/FoodService/getFoodKr?serviceKey=mNJnf3ilbQOpYA70ByDce1j4lkvdkk%2FoaJqvptZBtjYhLea5zKdcUcaBKrW6gf5hgiqQqVq20fpkV6GdydzajA%3D%3D&resultType=json&numOfRows=271',
       );
       if (resp.statusCode == 200) {
         // 필요한 데이터는 item안에 있어서 그것만 담아준다.
