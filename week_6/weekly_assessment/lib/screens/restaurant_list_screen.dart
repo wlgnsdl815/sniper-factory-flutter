@@ -32,8 +32,11 @@ class RestaurantListScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // 레스토랑 데이터를 담고 있다.
     final state = ref.watch(restaurantApiProvider);
+    // Drawer의 선택 값을 담고 있다.
     final selected = ref.watch(selectedProvider);
+
     return DefaultLayOut(
       drawer: Drawer(
           child: ListView(
@@ -64,6 +67,53 @@ class RestaurantListScreen extends ConsumerWidget {
       title: '🍽️ 부산 맛집 리스트 🍽️',
       body: state.when(
         data: (restaurant) {
+          // 선택된 지역의 레스토랑 리스트
+          var filteredList = restaurant
+              .where((element) => element.GUGUN_NM == selected)
+              .toList();
+
+          print(selected);
+          print(filteredList);
+          // 선택이 되었다면 선택된 지역의 레스토랑만 보여주기
+          if (selected.isNotEmpty) {
+            return ListView.separated(
+              separatorBuilder: (context, index) => Divider(
+                indent: 15.0,
+                endIndent: 15.0,
+                color: Colors.grey,
+              ),
+              itemCount: filteredList.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  leading: Image.network(
+                      filteredList[index].MAIN_IMG_THUMB.toString()),
+                  title: Text(
+                    filteredList[index].MAIN_TITLE.toString(),
+                  ),
+                  subtitle: Text(filteredList[index].ADDR1.toString()),
+                  trailing: IconButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              // 위도와 경도를 넘겨주어서 카메라 포지션을 정해준다.
+                              builder: (_) => NaviScreen(
+                                    zoom: 18,
+                                    cameraPosition: NLatLng(
+                                        filteredList[index].LAT!,
+                                        filteredList[index].LNG!),
+                                  )));
+                    },
+                    icon: Icon(
+                      Icons.map,
+                      color: Colors.green,
+                    ),
+                  ),
+                );
+              },
+            );
+          }
+
           return ListView.separated(
             separatorBuilder: (context, index) => Divider(
               indent: 15.0,
@@ -71,31 +121,34 @@ class RestaurantListScreen extends ConsumerWidget {
               color: Colors.grey,
             ),
             itemCount: restaurant.length,
-            itemBuilder: (context, index) => ListTile(
-              leading:
-                  Image.network(restaurant[index].MAIN_IMG_THUMB.toString()),
-              title: Text(
-                restaurant[index].MAIN_TITLE.toString(),
-              ),
-              subtitle: Text(restaurant[index].ADDR1.toString()),
-              trailing: IconButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          // 위도와 경도를 넘겨주어서 카메라 포지션을 정해준다.
-                          builder: (_) => NaviScreen(
-                                zoom: 18,
-                                cameraPosition: NLatLng(restaurant[index].LAT!,
-                                    restaurant[index].LNG!),
-                              )));
-                },
-                icon: Icon(
-                  Icons.map,
-                  color: Colors.green,
+            itemBuilder: (context, index) {
+              return ListTile(
+                leading:
+                    Image.network(restaurant[index].MAIN_IMG_THUMB.toString()),
+                title: Text(
+                  restaurant[index].MAIN_TITLE.toString(),
                 ),
-              ),
-            ),
+                subtitle: Text(restaurant[index].ADDR1.toString()),
+                trailing: IconButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            // 위도와 경도를 넘겨주어서 카메라 포지션을 정해준다.
+                            builder: (_) => NaviScreen(
+                                  zoom: 18,
+                                  cameraPosition: NLatLng(
+                                      restaurant[index].LAT!,
+                                      restaurant[index].LNG!),
+                                )));
+                  },
+                  icon: Icon(
+                    Icons.map,
+                    color: Colors.green,
+                  ),
+                ),
+              );
+            },
           );
         },
         error: (error, stack) {
