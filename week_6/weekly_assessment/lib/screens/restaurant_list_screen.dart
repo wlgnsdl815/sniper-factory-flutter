@@ -1,9 +1,30 @@
+// ignore_for_file: prefer_const_literals_to_create_immutables
+
 import 'package:flutter/material.dart';
 import 'package:flutter_naver_map/flutter_naver_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:weekly_assessment/riverpod/restaurant_api_provider.dart';
 import 'package:weekly_assessment/screens/navi_screen.dart';
 import 'package:weekly_assessment/styles/default_layout.dart';
+
+const district = [
+  '중구',
+  '서구',
+  '동구',
+  '영도구',
+  '부산진구',
+  '동래구',
+  '남구',
+  '북구',
+  '해운대구',
+  '사하구',
+  '금정구',
+  '강서구',
+  '연제구',
+  '수영구',
+  '사상구',
+  '기장군',
+];
 
 class RestaurantListScreen extends ConsumerWidget {
   const RestaurantListScreen({super.key});
@@ -12,6 +33,30 @@ class RestaurantListScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(restaurantApiProvider);
     return DefaultLayOut(
+      drawer: Drawer(
+          child: ListView(
+        children: [
+          DrawerHeader(
+            child: Text(
+              '지역 선택',
+              style: TextStyle(
+                color: Colors.green,
+                fontSize: 20.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          ...district.map(
+            (e) => ListTile(
+              onTap: () {},
+              title: Text(e),
+              selected: e == '중구',
+              selectedColor: Colors.white,
+              selectedTileColor: Colors.green,
+            ),
+          ),
+        ],
+      )),
       title: '🍽️ 부산 맛집 리스트 🍽️',
       body: state.when(
         data: (restaurant) {
@@ -55,6 +100,13 @@ class RestaurantListScreen extends ConsumerWidget {
         loading: () => Center(
           child: CircularProgressIndicator(),
         ),
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        backgroundColor: Colors.green,
+        onPressed: () {
+          Navigator.pop(context);
+        },
+        label: Text('뒤로가기'),
       ),
     );
   }
