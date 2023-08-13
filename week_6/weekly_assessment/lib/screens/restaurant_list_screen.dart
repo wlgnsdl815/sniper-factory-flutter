@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_naver_map/flutter_naver_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:weekly_assessment/riverpod/restaurant_api_provider.dart';
+import 'package:weekly_assessment/riverpod/selected_provider.dart';
 import 'package:weekly_assessment/screens/navi_screen.dart';
 import 'package:weekly_assessment/styles/default_layout.dart';
 
@@ -32,6 +33,7 @@ class RestaurantListScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(restaurantApiProvider);
+    final selected = ref.watch(selectedProvider);
     return DefaultLayOut(
       drawer: Drawer(
           child: ListView(
@@ -48,9 +50,11 @@ class RestaurantListScreen extends ConsumerWidget {
           ),
           ...district.map(
             (e) => ListTile(
-              onTap: () {},
+              onTap: () {
+                ref.read(selectedProvider.notifier).update((state) => e);
+              },
               title: Text(e),
-              selected: e == '중구',
+              selected: e == selected,
               selectedColor: Colors.white,
               selectedTileColor: Colors.green,
             ),
