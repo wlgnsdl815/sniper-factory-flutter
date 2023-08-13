@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables
 
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_naver_map/flutter_naver_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -55,6 +56,7 @@ class RestaurantListScreen extends ConsumerWidget {
             (e) => ListTile(
               onTap: () {
                 ref.read(selectedProvider.notifier).update((state) => e);
+                Navigator.pop(context);
               },
               title: Text(e),
               selected: e == selected,
@@ -71,9 +73,6 @@ class RestaurantListScreen extends ConsumerWidget {
           var filteredList = restaurant
               .where((element) => element.GUGUN_NM == selected)
               .toList();
-
-          print(selected);
-          print(filteredList);
           // 선택이 되었다면 선택된 지역의 레스토랑만 보여주기
           if (selected.isNotEmpty) {
             return ListView.separated(
@@ -84,29 +83,33 @@ class RestaurantListScreen extends ConsumerWidget {
               ),
               itemCount: filteredList.length,
               itemBuilder: (context, index) {
-                return ListTile(
-                  leading: Image.network(
-                      filteredList[index].MAIN_IMG_THUMB.toString()),
-                  title: Text(
-                    filteredList[index].MAIN_TITLE.toString(),
-                  ),
-                  subtitle: Text(filteredList[index].ADDR1.toString()),
-                  trailing: IconButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              // 위도와 경도를 넘겨주어서 카메라 포지션을 정해준다.
-                              builder: (_) => NaviScreen(
-                                    zoom: 18,
-                                    cameraPosition: NLatLng(
-                                        filteredList[index].LAT!,
-                                        filteredList[index].LNG!),
-                                  )));
-                    },
-                    icon: Icon(
-                      Icons.map,
-                      color: Colors.green,
+                return FadeIn(
+                  delay: Duration(milliseconds: 100 * index),
+                  duration: Duration(milliseconds: 100),
+                  child: ListTile(
+                    leading: Image.network(
+                        filteredList[index].MAIN_IMG_THUMB.toString()),
+                    title: Text(
+                      filteredList[index].MAIN_TITLE.toString(),
+                    ),
+                    subtitle: Text(filteredList[index].ADDR1.toString()),
+                    trailing: IconButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                // 위도와 경도를 넘겨주어서 카메라 포지션을 정해준다.
+                                builder: (_) => NaviScreen(
+                                      zoom: 18,
+                                      cameraPosition: NLatLng(
+                                          filteredList[index].LAT!,
+                                          filteredList[index].LNG!),
+                                    )));
+                      },
+                      icon: Icon(
+                        Icons.map,
+                        color: Colors.green,
+                      ),
                     ),
                   ),
                 );
@@ -122,29 +125,33 @@ class RestaurantListScreen extends ConsumerWidget {
             ),
             itemCount: restaurant.length,
             itemBuilder: (context, index) {
-              return ListTile(
-                leading:
-                    Image.network(restaurant[index].MAIN_IMG_THUMB.toString()),
-                title: Text(
-                  restaurant[index].MAIN_TITLE.toString(),
-                ),
-                subtitle: Text(restaurant[index].ADDR1.toString()),
-                trailing: IconButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            // 위도와 경도를 넘겨주어서 카메라 포지션을 정해준다.
-                            builder: (_) => NaviScreen(
-                                  zoom: 18,
-                                  cameraPosition: NLatLng(
-                                      restaurant[index].LAT!,
-                                      restaurant[index].LNG!),
-                                )));
-                  },
-                  icon: Icon(
-                    Icons.map,
-                    color: Colors.green,
+              return FadeIn(
+                delay: Duration(milliseconds: 100 * index),
+                duration: Duration(milliseconds: 100),
+                child: ListTile(
+                  leading: Image.network(
+                      restaurant[index].MAIN_IMG_THUMB.toString()),
+                  title: Text(
+                    restaurant[index].MAIN_TITLE.toString(),
+                  ),
+                  subtitle: Text(restaurant[index].ADDR1.toString()),
+                  trailing: IconButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              // 위도와 경도를 넘겨주어서 카메라 포지션을 정해준다.
+                              builder: (_) => NaviScreen(
+                                    zoom: 18,
+                                    cameraPosition: NLatLng(
+                                        restaurant[index].LAT!,
+                                        restaurant[index].LNG!),
+                                  )));
+                    },
+                    icon: Icon(
+                      Icons.map,
+                      color: Colors.green,
+                    ),
                   ),
                 ),
               );

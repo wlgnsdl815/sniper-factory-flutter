@@ -1,16 +1,35 @@
-# weekly_assessment
+# 플러터 | 6주차 주간과제 (자체 기획앱)
 
-A new Flutter project.
+<aside>
+선택한 API의 난이도가 평가 점수에 반영될 수 있습니다.
 
-## Getting Started
+</aside>
 
-This project is a starting point for a Flutter application.
+1. **아래는 공개된 API의 리스트를 공유하는 Github 문서이다.
+아래의 링크에 들어가서, 공개되어있는 API중 하나를 분석하고 직접 기획하여 본인이 기획한 어플을 제작하시오.**
+    - https://github.com/public-apis/public-apis
 
-A few resources to get you started if this is your first Flutter project:
+1. **기획 과제내용을 간단히 2-3줄로 설명하여 제출하시오.
+이 때 해결 과정을 함께 포함하여 정리하시오.**
+**(어려웠던 내용과 헤맸던 내용이 있다면 반드시 기재할 것)**
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+2. **다음의 조건을 반드시 만족할 것.**
+    - 페이지는 두 페이지 이상이어야 하며 네비게이션을 활용하여 페이지 이동이 포함될 것
+    - 클래스를 작성하여 Serialization이 적용될 수 있도록 할 것
+    - 적절한 애니메이션 효과를 포함할 것
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 🧑‍💻 결과
+
+![Alt text](<Simulator Screen Recording - iPhone 14 Pro Max - 2023-08-14 at 00.56.29.gif>)
+
+### 구현한 기능
+1. 부산 맛집 전체지도 뷰
+    - API를 받아와서 마커로 위치를 찍어주었다.
+2. 부산 맛집 리스트
+    - 리스트의 아이콘을 누르면 확대한 지도로 이동한다.
+3. 지역 필터링
+    - 맛집 리스트 페이지에서 왼쪽 상단의 Drawer로 원하는 지역을 선택하면 그 위치에 해당하는 지역만 리스트로 보여준다.
+
+#### 사용한 API
+- 네이버 지도 API
+- 부산 맛집 API (공공데이터 포털)

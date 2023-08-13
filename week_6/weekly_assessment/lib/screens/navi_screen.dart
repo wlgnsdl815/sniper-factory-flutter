@@ -77,7 +77,6 @@ class NaviScreen extends ConsumerWidget {
     //     NMarker(id: 'id', position: NLatLng(35.1796, 129.0756));
     // marker1.setCaption(NOverlayCaption(text: 'text'));
     return DefaultLayOut(
-      drawer: Drawer(),
       title: '🍽️ 부산 맛집 지도 🍽️',
       body: state.when(
         data: (data) => NaverMap(
@@ -102,13 +101,6 @@ class NaviScreen extends ConsumerWidget {
             ],
           ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        backgroundColor: Colors.green,
-        onPressed: () {
-          Navigator.pop(context);
-        },
-        label: Text('뒤로가기'),
       ),
     );
   }
