@@ -20,11 +20,12 @@
 
 ## 🧑‍💻 결과
 
-![Alt text](<Simulator Screen Recording - iPhone 14 Pro Max - 2023-08-14 at 00.56.29.gif>)
+![Alt text](<Simulator Screen Recording - iPhone 14 Pro Max - 2023-08-14 at 01.13.08.gif>)
 
 ### 구현한 기능
 1. 부산 맛집 전체지도 뷰
     - API를 받아와서 마커로 위치를 찍어주었다.
+    - 마커를 클릭하면 가게의 정보가 나오도록 했다.
 2. 부산 맛집 리스트
     - 리스트의 아이콘을 누르면 확대한 지도로 이동한다.
 3. 지역 필터링
