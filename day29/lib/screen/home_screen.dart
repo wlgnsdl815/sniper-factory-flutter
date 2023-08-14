@@ -1,5 +1,8 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables
 
+import 'package:day29/controllers/app_setting_controller.dart';
+import 'package:day29/screen/first_screen.dart';
+import 'package:day29/screen/second_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -8,6 +11,19 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Get.updateLocale(Locale('ko', 'KR'));
+
+    Get.put(
+      AppSettingController(
+        isSoundOn: true,
+        isNotificationOn: false,
+        appVersion: 'first_version',
+        appName: "Jihoon's App",
+        appAuthor: 'Jihoon',
+        appPackageName: 'GetX Practice',
+      ),
+    );
+
     return Scaffold(
       body: Center(
         child: Column(
@@ -61,6 +77,19 @@ class HomeScreen extends StatelessWidget {
                 Get.snackbar('스낵바 제목입니다.', '스낵바 내용입니다.');
               },
               child: Text('Get Snackbar'),
+            ),
+            Text('hello'.tr), // 안녕 출력
+            ElevatedButton(
+              onPressed: () {
+                Get.to(() => FirstScreen());
+              },
+              child: Text('Go To First Screen'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Get.to(() => SecondScreen());
+              },
+              child: Text('Go to Second Screen'),
             ),
           ],
         ),

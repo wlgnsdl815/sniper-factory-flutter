@@ -33,3 +33,14 @@
 ```dart
 Get.to(()=>페이지명());
 ```
+
+## 🧑‍💻 결과
+
+![Alt text](<Simulator Screen Recording - iPhone 14 Pro Max - 2023-08-14 at 19.37.06.gif>)
+
+1. Get.dialog
+2. Get.bottomSheet
+3. Get.snackbar
+4. i18n 구현
+5. Get.find 첫번째 페이지 (appName 출력)
+6. Get.find 두번째 페이지 (author 출력)
