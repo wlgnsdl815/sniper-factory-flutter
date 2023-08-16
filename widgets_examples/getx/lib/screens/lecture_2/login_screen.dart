@@ -6,6 +6,8 @@ import 'package:getx/controller/global_data_controller_2.dart';
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
 
+  static const String route = '/login';
+
   @override
   Widget build(BuildContext context) {
     var controller = Get.find<GlobalDataController2>();
