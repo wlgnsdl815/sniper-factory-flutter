@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getx/controller/app_global_data_controller.dart';
-import 'package:getx/screens/memo_screen.dart';
-import 'package:getx/screens/user_screen.dart';
+import 'package:getx/screens/lecture_1/memo_screen.dart';
+import 'package:getx/screens/lecture_1/user_screen.dart';
 
 class MainScreen extends StatelessWidget {
   const MainScreen({super.key});
