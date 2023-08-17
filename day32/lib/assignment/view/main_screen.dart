@@ -56,14 +56,39 @@ class MainScreen extends GetView<MainController> {
                 ),
               ],
             ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ListTile(
+                  leading: CircleAvatar(),
+                  title: Text(user.username),
+                  subtitle: Text(user.name),
+                ),
+                ListTile(
+                  title: Text('로그아웃하기'),
+                  leading: Icon(Icons.logout),
+                  onTap: controller.logout,
+                )
+              ],
+            ),
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'My'),
-        ],
+      bottomNavigationBar: Obx(
+        () => BottomNavigationBar(
+          currentIndex: controller.currentScreen.value,
+          onTap: controller.onPageTapped,
+          items: [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person),
+              label: 'My',
+            ),
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: controller.readDocuments,

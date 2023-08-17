@@ -1,3 +1,4 @@
+import 'package:day32/assignment/controllers/login_controller.dart';
 import 'package:day32/assignment/models/user_model.dart';
 import 'package:day32/assignment/services/user_service.dart';
 import 'package:day32/assignment/utils/app_routes.dart';
@@ -33,6 +34,8 @@ class AuthController extends GetxController {
 
   logout() {
     _user.value = null;
+    Get.find<LoginController>().idController.clear();
+    Get.find<LoginController>().pwController.clear();
   }
 
   @override

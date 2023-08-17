@@ -1,10 +1,13 @@
+import 'package:day32/assignment/controllers/auth_controller.dart';
 import 'package:day32/assignment/models/document_model.dart';
 import 'package:day32/assignment/services/doucument_service.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class MainController extends GetxController {
   PageController pageController = PageController();
+  final RxInt currentScreen = 0.obs;
 
   final RxList<Document> _doc = <Document>[].obs;
 
@@ -16,6 +19,15 @@ class MainController extends GetxController {
 
   readDocuments() {
     DocumentService().getData();
+  }
+
+  onPageTapped(int v) {
+    pageController.jumpToPage(v);
+    currentScreen(v);
+  }
+
+  logout() {
+    Get.find<AuthController>().logout();
   }
 
   @override
