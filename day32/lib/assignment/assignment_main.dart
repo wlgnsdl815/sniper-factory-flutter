@@ -1,4 +1,6 @@
+import 'package:day32/assignment/controllers/auth_controller.dart';
 import 'package:day32/assignment/controllers/login_controller.dart';
+import 'package:day32/assignment/controllers/main_controller.dart';
 import 'package:day32/assignment/services/user_service.dart';
 import 'package:day32/assignment/utils/app_routes.dart';
 import 'package:day32/assignment/utils/app_screens.dart';
@@ -18,7 +20,9 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       theme: ThemeData(useMaterial3: true),
       initialBinding: BindingsBuilder(() {
+        Get.put(AuthController());
         Get.lazyPut(() => LoginController());
+        Get.lazyPut(() => MainController());
       }),
       getPages: AppScreens.screens,
       home: Scaffold(

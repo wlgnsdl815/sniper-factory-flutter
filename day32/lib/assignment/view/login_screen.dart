@@ -13,6 +13,7 @@ class LoginScreen extends GetView<LoginController> {
       appBar: AppBar(),
       body: Center(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TextField(
               controller: controller.idController,
@@ -22,7 +23,9 @@ class LoginScreen extends GetView<LoginController> {
             ),
             SizedBox(height: 10),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                controller.login();
+              },
               child: Text('로그인하기'),
             ),
           ],

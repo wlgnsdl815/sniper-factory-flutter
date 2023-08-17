@@ -6,7 +6,15 @@ import 'package:get/get.dart';
 class AuthController extends GetxController {
   final Rxn<User> _user = Rxn();
 
+  User? get user => _user.value;
+
+  setUser(User user) {
+    _user(user);
+    print(_user);
+  }
+
   _handleAuthChanged(User? userData) {
+    print('curdata: $userData');
     if (userData != null) {
       Get.toNamed(AppRoutes.main);
       return;
@@ -17,16 +25,17 @@ class AuthController extends GetxController {
 
   login(String id, String pw) {
     UserService().getData(id, pw);
+    // print(_user);
   }
 
   logout() {
     _user.value = null;
-    _user(null);
   }
 
   @override
   void onInit() {
     super.onInit();
+    print('onInit: $_user');
     ever(_user, _handleAuthChanged);
   }
 }
