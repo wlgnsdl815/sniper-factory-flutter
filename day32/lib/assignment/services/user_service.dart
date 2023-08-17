@@ -9,9 +9,9 @@ class UserService {
   getData(String id, String pw) async {
     try {
       Dio dio = Dio();
-      String baseUrl = dio.options.baseUrl = 'http://52.79.115.43:8090';
+      dio.options.baseUrl = ApiRoutes.baseUrl;
       var response = await dio.post(
-        baseUrl + ApiRoutes.authWithPassword,
+        ApiRoutes.authWithPassword,
         data: {
           'identity': id,
           'password': pw,
@@ -20,6 +20,8 @@ class UserService {
       if (response.statusCode == 200) {
         String token = response.data['token'];
         User user = User.fromMap(response.data['record']);
+
+        Get.find<AuthController>().setToken(token);
         Get.find<AuthController>().setUser(user);
       }
     } catch (e) {
