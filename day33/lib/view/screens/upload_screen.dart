@@ -12,6 +12,7 @@ class UploadScreen extends GetView<UploadController> {
 
   @override
   Widget build(BuildContext context) {
+    final _formKey = GlobalKey<FormState>();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -22,31 +23,35 @@ class UploadScreen extends GetView<UploadController> {
         child: Center(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 30.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                SizedBox(
-                  height: 100,
-                  width: 100,
-                  child: Image.asset('assets/images/cat.png'),
-                ),
-                CustomTextField(
-                  controller: controller.secretController,
-                  hintText: '비밀을 입력하세요',
-                  maxLines: 18,
-                  isEmail: false,
-                ),
-                SizedBox(height: 10),
-                CustomElevatedButton(
-                  title: '업로드',
-                  onPressed: () {
-                    controller.upload();
-                    Get.snackbar('비밀이 업로드 되었습니다!', '어서 확인해보세요!');
-                    Get.toNamed(ScreenRoutes.home);
-                  },
-                ),
-              ],
+            child: Form(
+              key: _formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  SizedBox(
+                    height: 100,
+                    width: 100,
+                    child: Image.asset('assets/images/cat.png'),
+                  ),
+                  CustomTextField(
+                    controller: controller.secretController,
+                    hintText: '비밀을 입력하세요',
+                    maxLines: 18,
+                    isEmail: false,
+                    isIdPw: false,
+                  ),
+                  SizedBox(height: 10),
+                  CustomElevatedButton(
+                    title: '업로드',
+                    onPressed: () {
+                      controller.upload();
+                      Get.snackbar('비밀이 업로드 되었습니다!', '어서 확인해보세요!');
+                      Get.toNamed(ScreenRoutes.home);
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
         ),

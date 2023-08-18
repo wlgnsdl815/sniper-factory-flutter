@@ -8,6 +8,7 @@ class CustomTextField extends StatelessWidget {
   final String hintText;
   final int? maxLines;
   final bool isEmail;
+  final bool isIdPw;
 
   const CustomTextField({
     Key? key,
@@ -15,11 +16,13 @@ class CustomTextField extends StatelessWidget {
     required this.hintText,
     this.maxLines,
     required this.isEmail,
+    required this.isIdPw,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       validator: (value) {
         if (isEmail) {
           final RegExp emailValidator = RegExp(
@@ -29,11 +32,13 @@ class CustomTextField extends StatelessWidget {
             return '유효한 이메일을 입력해주세요';
           }
         }
-        if (!isEmail) {
+
+        if (isIdPw) {
           if (value == null || value.isEmpty || value.length < 9) {
             return '9자 이상 입력해주세요';
           }
         }
+
         return null;
       },
       maxLines: maxLines,

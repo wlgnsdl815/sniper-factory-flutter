@@ -36,12 +36,14 @@ class LoginScreen extends GetView<LoginController> {
                   controller: controller.idController,
                   hintText: 'ID',
                   isEmail: false,
+                  isIdPw: true,
                 ),
                 SizedBox(height: 20),
                 CustomTextField(
                   controller: controller.pwController,
                   hintText: 'PW',
                   isEmail: false,
+                  isIdPw: true,
                 ),
                 SizedBox(height: 20),
                 Column(

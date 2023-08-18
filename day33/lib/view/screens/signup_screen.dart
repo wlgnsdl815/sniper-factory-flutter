@@ -43,24 +43,28 @@ class SignupScreen extends GetView<SignupController> {
                   controller: controller.emailController,
                   hintText: 'Email',
                   isEmail: true,
+                  isIdPw: false,
                 ),
                 SizedBox(height: 20),
                 CustomTextField(
                   controller: controller.pwController,
                   hintText: 'PW',
                   isEmail: false,
+                  isIdPw: true,
                 ),
                 SizedBox(height: 20),
                 CustomTextField(
                   controller: controller.pw2Controller,
                   hintText: 'PW Confirm',
                   isEmail: false,
+                  isIdPw: true,
                 ),
                 SizedBox(height: 20),
                 CustomTextField(
                   controller: controller.nameController,
                   hintText: 'Nickname',
                   isEmail: false,
+                  isIdPw: false,
                 ),
                 Expanded(child: SizedBox()),
                 Column(
