@@ -1,8 +1,10 @@
 import 'dart:developer';
 
+import 'package:day33/controllers/auth_controller.dart';
 import 'package:day33/models/user_model.dart';
 import 'package:day33/utils/api_routes.dart';
 import 'package:dio/dio.dart';
+import 'package:get/get.dart';
 
 class UserService {
   getUserList() async {
@@ -13,7 +15,7 @@ class UserService {
       if (response.statusCode == 200) {
         List dataList = response.data['items'];
         List<User> userList = dataList.map((e) => User.fromMap(e)).toList();
-        log('$userList', name: 'userList');
+        // log('$userList', name: 'userList');
       }
     } catch (e) {
       throw Exception(e);
@@ -33,7 +35,11 @@ class UserService {
           'password': pw,
         },
       );
-      log('$res', name: 'res');
+      String token = res.data['token'];
+      User user = User.fromMap(res.data['record']);
+      // log('${user}', name: 'user');
+      // log('${res.data['record']}', name: 'res');
+      Get.find<AuthController>().setUser(user);
     } catch (e) {
       throw Exception(e);
     }
@@ -47,12 +53,6 @@ class UserService {
     // 이메일 정규식
     final RegExp regex =
         RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$');
-
-    print(email);
-    print(pw);
-    print(pw2);
-    print(name);
-
     if (regex.hasMatch(email) && pw.length >= 9 && pw == pw2) {
       try {
         Dio dio = Dio();
@@ -66,7 +66,6 @@ class UserService {
             'username': name,
           },
         );
-        print(res);
       } catch (e) {
         if (e is DioException) {
           print("Dio error: ${e.response?.data}");
