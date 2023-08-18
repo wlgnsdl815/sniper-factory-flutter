@@ -42,35 +42,42 @@ class SignupScreen extends GetView<SignupController> {
                 CustomTextField(
                   controller: controller.emailController,
                   hintText: 'Email',
+                  isEmail: true,
                 ),
                 SizedBox(height: 20),
                 CustomTextField(
                   controller: controller.pwController,
                   hintText: 'PW',
+                  isEmail: false,
                 ),
                 SizedBox(height: 20),
                 CustomTextField(
                   controller: controller.pw2Controller,
                   hintText: 'PW Confirm',
+                  isEmail: false,
                 ),
                 SizedBox(height: 20),
                 CustomTextField(
                   controller: controller.nameController,
                   hintText: 'Nickname',
+                  isEmail: false,
                 ),
                 Expanded(child: SizedBox()),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     CustomElevatedButton(
-                      title: '회원가입',
-                      onPressed: () => UserService().postSignup(
-                        email: controller.emailController.text,
-                        pw: controller.pwController.text,
-                        pw2: controller.pw2Controller.text,
-                        name: controller.nameController.text,
-                      ),
-                    ),
+                        title: '회원가입',
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            UserService().postSignup(
+                              email: controller.emailController.text,
+                              pw: controller.pwController.text,
+                              pw2: controller.pw2Controller.text,
+                              name: controller.nameController.text,
+                            );
+                          }
+                        }),
                   ],
                 ),
               ],

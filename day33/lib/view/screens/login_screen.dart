@@ -14,55 +14,65 @@ class LoginScreen extends GetView<LoginController> {
 
   @override
   Widget build(BuildContext context) {
+    final _formKey = GlobalKey<FormState>();
     return Scaffold(
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 32.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                '로그인',
-                style: CustomTextStyle.title,
-              ),
-              SizedBox(height: 20),
-              CatCircleAvatar(),
-              SizedBox(height: 20),
-              CustomTextField(
-                controller: controller.idController,
-                hintText: 'ID',
-              ),
-              SizedBox(height: 20),
-              CustomTextField(
-                controller: controller.pwController,
-                hintText: 'PW',
-              ),
-              SizedBox(height: 20),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  CustomElevatedButton(
-                    title: '로그인',
-                    onPressed: () => LoginController().login(
-                      controller.idController.text,
-                      controller.pwController.text,
+          child: Form(
+            key: _formKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  '로그인',
+                  style: CustomTextStyle.title,
+                ),
+                SizedBox(height: 20),
+                CatCircleAvatar(),
+                SizedBox(height: 20),
+                CustomTextField(
+                  controller: controller.idController,
+                  hintText: 'ID',
+                  isEmail: false,
+                ),
+                SizedBox(height: 20),
+                CustomTextField(
+                  controller: controller.pwController,
+                  hintText: 'PW',
+                  isEmail: false,
+                ),
+                SizedBox(height: 20),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    CustomElevatedButton(
+                      title: '로그인',
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          LoginController().login(
+                            controller.idController.text,
+                            controller.pwController.text,
+                          );
+                        }
+                      },
                     ),
-                  ),
-                  SizedBox(height: 20),
-                  TextButton(
-                    style: TextButton.styleFrom(foregroundColor: Colors.grey),
-                    onPressed: () {
-                      Get.toNamed(ScreenRoutes.signup);
-                    },
-                    child: Text(
-                      '새로 회원가입',
-                      style: CustomTextStyle.title.copyWith(fontSize: 18.0),
+                    SizedBox(height: 20),
+                    TextButton(
+                      style: TextButton.styleFrom(foregroundColor: Colors.grey),
+                      onPressed: () {
+                        Get.toNamed(ScreenRoutes.signup);
+                      },
+                      child: Text(
+                        '새로 회원가입',
+                        style: CustomTextStyle.title.copyWith(fontSize: 18.0),
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            ],
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),

@@ -35,6 +35,7 @@ class UploadScreen extends GetView<UploadController> {
                   controller: controller.secretController,
                   hintText: '비밀을 입력하세요',
                   maxLines: 18,
+                  isEmail: false,
                 ),
                 SizedBox(height: 10),
                 CustomElevatedButton(
