@@ -1,5 +1,4 @@
 import 'package:day33/controllers/login_controller.dart';
-import 'package:day33/services/user_service.dart';
 import 'package:day33/styles/text_styles.dart';
 import 'package:day33/utils/screen_routes.dart';
 import 'package:day33/widget/cat_circle_avatar.dart';

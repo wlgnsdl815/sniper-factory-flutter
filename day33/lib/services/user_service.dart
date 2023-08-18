@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:day33/controllers/auth_controller.dart';
 import 'package:day33/models/user_model.dart';
 import 'package:day33/utils/api_routes.dart';
