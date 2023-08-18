@@ -1,7 +1,14 @@
+import 'package:day33/controllers/login_controller.dart';
+import 'package:day33/services/user_service.dart';
 import 'package:day33/styles/text_styles.dart';
+import 'package:day33/utils/screen_routes.dart';
+import 'package:day33/widget/cat_circle_avatar.dart';
+import 'package:day33/widget/custom_elevated_button.dart';
+import 'package:day33/widget/custom_text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends GetView<LoginController> {
   const LoginScreen({super.key});
 
   static const String route = '/login';
@@ -21,79 +28,34 @@ class LoginScreen extends StatelessWidget {
                 style: CustomTextStyle.title,
               ),
               SizedBox(height: 20),
-              CircleAvatar(
-                backgroundColor: Colors.white,
-                radius: 50.0,
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Image.asset(
-                    'assets/images/cat.png',
-                  ),
-                ),
+              CatCircleAvatar(),
+              SizedBox(height: 20),
+              CustomTextField(
+                controller: controller.idController,
+                hintText: 'ID',
               ),
               SizedBox(height: 20),
-              TextField(
-                cursorColor: Colors.grey,
-                decoration: InputDecoration(
-                  fillColor: Colors.white,
-                  filled: true,
-                  hintText: 'ID',
-                  hintStyle: CustomTextStyle.content,
-                  enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide(color: Colors.grey.shade300)),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: BorderSide(color: Colors.grey.shade300),
-                  ),
-                  focusColor: Colors.grey,
-                ),
-              ),
-              SizedBox(height: 20),
-              TextField(
-                cursorColor: Colors.grey,
-                decoration: InputDecoration(
-                  fillColor: Colors.white,
-                  filled: true,
-                  hintText: 'PW',
-                  hintStyle: CustomTextStyle.content,
-                  enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide(color: Colors.grey.shade300)),
-                  focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide(color: Colors.grey.shade300)),
-                  focusColor: Colors.grey,
-                ),
+              CustomTextField(
+                controller: controller.pwController,
+                hintText: 'PW',
               ),
               SizedBox(height: 20),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  GestureDetector(
-                    onTap: () {},
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        border: Border.all(
-                          color: Colors.grey.shade300,
-                        ),
-                        borderRadius: BorderRadius.circular(32.0),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Text(
-                          '로그인',
-                          textAlign: TextAlign.center,
-                          style: CustomTextStyle.title,
-                        ),
-                      ),
+                  CustomElevatedButton(
+                    title: '로그인',
+                    onPressed: () => LoginController().login(
+                      controller.idController.text,
+                      controller.pwController.text,
                     ),
                   ),
                   SizedBox(height: 20),
                   TextButton(
                     style: TextButton.styleFrom(foregroundColor: Colors.grey),
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.toNamed(ScreenRoutes.signup);
+                    },
                     child: Text(
                       '새로 회원가입',
                       style: CustomTextStyle.title.copyWith(fontSize: 18.0),

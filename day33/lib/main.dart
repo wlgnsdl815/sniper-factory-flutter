@@ -1,3 +1,7 @@
+import 'package:day33/controllers/auth_controller.dart';
+import 'package:day33/controllers/login_controller.dart';
+import 'package:day33/controllers/signup_controller.dart';
+import 'package:day33/services/user_service.dart';
 import 'package:day33/styles/colors.dart';
 import 'package:day33/utils/app_screens.dart';
 import 'package:day33/utils/screen_routes.dart';
@@ -13,7 +17,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    UserService().getUserList();
     return GetMaterialApp(
+      initialBinding: BindingsBuilder(() {
+        Get.put(AuthController());
+        Get.lazyPut(() => LoginController());
+        Get.lazyPut(() => SignupController(), fenix: true);
+      }),
       getPages: AppScreens.screens,
       theme: ThemeData(
         fontFamily: 'Neo',
