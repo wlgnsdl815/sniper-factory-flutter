@@ -1,4 +1,5 @@
 import 'package:day33/controllers/auth_controller.dart';
+import 'package:day33/controllers/upload_controller.dart';
 import 'package:day33/models/user_model.dart';
 import 'package:day33/utils/api_routes.dart';
 import 'package:dio/dio.dart';
@@ -22,7 +23,7 @@ class UserService {
 
   // - identity (String - required)
   // - password (String -required, 9글자 이상)
-  postLogin(String id, String pw) async {
+  postLogin({required String id, required String pw}) async {
     try {
       Dio dio = Dio();
       dio.options.baseUrl = ApiRoutes.baseUrl;
@@ -38,6 +39,7 @@ class UserService {
       // log('${user}', name: 'user');
       // log('${res.data['record']}', name: 'res');
       Get.find<AuthController>().setUser(user);
+      Get.find<UploadController>().setAuthor(user.id, user.username);
     } catch (e) {
       throw Exception(e);
     }
@@ -47,7 +49,12 @@ class UserService {
   // - password (String - required, 9자 이상일 것)
   // - passwordConfirm (String - required, 9자 이상일 것)
   // - username (String)
-  postSignup(String email, String pw, String pw2, String name) async {
+  postSignup({
+    required String email,
+    required String pw,
+    required String pw2,
+    required String? name,
+  }) async {
     // 이메일 정규식
     final RegExp regex =
         RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$');

@@ -10,10 +10,10 @@ class SignupController extends GetxController {
 
   signUp(String email, String pw, String pw2, String name) {
     UserService().postSignup(
-      emailController.text,
-      pwController.text,
-      pw2Controller.text,
-      nameController.text,
+      email: emailController.text,
+      pw: pwController.text,
+      pw2: pw2Controller.text,
+      name: nameController.text,
     );
   }
 }

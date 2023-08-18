@@ -40,29 +40,32 @@ class SecretScreen extends GetView<SecretController> {
             itemCount: controller.getList.length,
             controller: controller.pageController,
             itemBuilder: ((context, index) {
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CircleAvatar(
-                    radius: 40,
-                    backgroundColor: Colors.transparent,
-                    child: Image.asset('assets/images/cat.png'),
-                  ),
-                  SizedBox(height: 30.0),
-                  Text(
-                    controller.getList[index].secret,
-                    style: _textStyle,
-                  ),
-                  SizedBox(height: 30.0),
-                  Text(
-                    controller.getList[index].author == ''
-                        ? '익명으로 작성되었습니다.'
-                        : '작성자: ${controller.getList[index].author}',
-                    style: _textStyle.copyWith(
-                      fontSize: 16.0,
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CircleAvatar(
+                      radius: 40,
+                      backgroundColor: Colors.transparent,
+                      child: Image.asset('assets/images/cat.png'),
                     ),
-                  ),
-                ],
+                    SizedBox(height: 30.0),
+                    Text(
+                      controller.getList[index].secret,
+                      style: _textStyle,
+                    ),
+                    SizedBox(height: 30.0),
+                    Text(
+                      controller.getList[index].author == ''
+                          ? '익명으로 작성되었습니다.'
+                          : '작성자: ${controller.getList[index].author}',
+                      style: _textStyle.copyWith(
+                        fontSize: 16.0,
+                      ),
+                    ),
+                  ],
+                ),
               );
             }),
           ),

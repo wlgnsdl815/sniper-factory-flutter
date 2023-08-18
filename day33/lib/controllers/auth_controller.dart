@@ -21,7 +21,10 @@ class AuthController extends GetxController {
   }
 
   login(String id, String pw) {
-    UserService().postLogin(id, pw);
+    UserService().postLogin(
+      id: id,
+      pw: pw,
+    );
   }
 
   logout() {

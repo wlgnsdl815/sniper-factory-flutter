@@ -21,7 +21,11 @@ class SecretService {
     }
   }
 
-  postUploadSecret(String secret, String? author, String? authorName) async {
+  postUploadSecret({
+    required String secret,
+    required String? author,
+    required String? authorName,
+  }) async {
     try {
       Dio dio = Dio();
       dio.options.baseUrl = ApiRoutes.baseUrl;
@@ -33,7 +37,6 @@ class SecretService {
           'authorName': authorName,
         },
       );
-      if (res.statusCode == 200) {}
     } catch (e) {
       throw Exception(e);
     }

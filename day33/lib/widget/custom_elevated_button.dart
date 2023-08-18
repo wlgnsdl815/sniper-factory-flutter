@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 
 class CustomElevatedButton extends StatelessWidget {
   final String title;
-  final VoidCallback? onPressed;
+  final VoidCallback onPressed;
 
   const CustomElevatedButton({
     super.key,
     required this.title,
-    this.onPressed,
+    required this.onPressed,
   });
 
   @override

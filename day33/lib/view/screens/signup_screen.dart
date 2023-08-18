@@ -61,10 +61,10 @@ class SignupScreen extends GetView<SignupController> {
                   CustomElevatedButton(
                     title: '회원가입',
                     onPressed: () => UserService().postSignup(
-                      controller.emailController.text,
-                      controller.pwController.text,
-                      controller.pw2Controller.text,
-                      controller.nameController.text,
+                      email: controller.emailController.text,
+                      pw: controller.pwController.text,
+                      pw2: controller.pw2Controller.text,
+                      name: controller.nameController.text,
                     ),
                   ),
                 ],
