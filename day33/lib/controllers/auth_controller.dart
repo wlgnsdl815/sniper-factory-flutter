@@ -5,7 +5,9 @@ import 'package:day33/utils/screen_routes.dart';
 import 'package:get/get.dart';
 
 class AuthController extends GetxController {
-  final Rxn<User> _user = Rxn();
+  Rxn<User> _user = Rxn();
+
+  get user => _user;
 
   setUser(User user) {
     _user(user);
@@ -16,6 +18,7 @@ class AuthController extends GetxController {
       Get.toNamed(ScreenRoutes.home);
       return;
     }
+
     Get.toNamed(ScreenRoutes.login);
     return;
   }
@@ -28,9 +31,11 @@ class AuthController extends GetxController {
   }
 
   logout() {
-    _user(null);
     Get.find<LoginController>().idController.clear();
     Get.find<LoginController>().pwController.clear();
+    _user.value = null;
+    print(_user);
+    Get.snackbar('Logout 되었습니다.', '다음에 또 봬요!');
   }
 
   @override

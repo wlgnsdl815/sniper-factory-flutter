@@ -1,6 +1,7 @@
 import 'package:day33/controllers/auth_controller.dart';
 import 'package:day33/controllers/login_controller.dart';
 import 'package:day33/controllers/secret_controller.dart';
+import 'package:day33/controllers/setting_controller.dart';
 import 'package:day33/controllers/signup_controller.dart';
 import 'package:day33/controllers/upload_controller.dart';
 import 'package:day33/services/secret_service.dart';
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
         Get.lazyPut(() => SignupController(), fenix: true);
         Get.lazyPut(() => SecretController(), fenix: true);
         Get.lazyPut(() => UploadController(), fenix: true);
+        Get.lazyPut(() => SettingController());
       }),
       getPages: AppScreens.screens,
       theme: ThemeData(

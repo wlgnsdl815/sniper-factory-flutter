@@ -15,6 +15,8 @@ class SignupScreen extends GetView<SignupController> {
 
   @override
   Widget build(BuildContext context) {
+    final _formKey = GlobalKey<FormState>();
+
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
@@ -24,52 +26,55 @@ class SignupScreen extends GetView<SignupController> {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 32.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                '회원가입',
-                style: CustomTextStyle.title,
-              ),
-              SizedBox(height: 20),
-              CatCircleAvatar(),
-              SizedBox(height: 20),
-              CustomTextField(
-                controller: controller.emailController,
-                hintText: 'Email',
-              ),
-              SizedBox(height: 20),
-              CustomTextField(
-                controller: controller.pwController,
-                hintText: 'PW',
-              ),
-              SizedBox(height: 20),
-              CustomTextField(
-                controller: controller.pw2Controller,
-                hintText: 'PW Confirm',
-              ),
-              SizedBox(height: 20),
-              CustomTextField(
-                controller: controller.nameController,
-                hintText: 'Nickname',
-              ),
-              Expanded(child: SizedBox()),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  CustomElevatedButton(
-                    title: '회원가입',
-                    onPressed: () => UserService().postSignup(
-                      email: controller.emailController.text,
-                      pw: controller.pwController.text,
-                      pw2: controller.pw2Controller.text,
-                      name: controller.nameController.text,
+          child: Form(
+            key: _formKey,
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  '회원가입',
+                  style: CustomTextStyle.title,
+                ),
+                SizedBox(height: 20),
+                CatCircleAvatar(),
+                SizedBox(height: 20),
+                CustomTextField(
+                  controller: controller.emailController,
+                  hintText: 'Email',
+                ),
+                SizedBox(height: 20),
+                CustomTextField(
+                  controller: controller.pwController,
+                  hintText: 'PW',
+                ),
+                SizedBox(height: 20),
+                CustomTextField(
+                  controller: controller.pw2Controller,
+                  hintText: 'PW Confirm',
+                ),
+                SizedBox(height: 20),
+                CustomTextField(
+                  controller: controller.nameController,
+                  hintText: 'Nickname',
+                ),
+                Expanded(child: SizedBox()),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    CustomElevatedButton(
+                      title: '회원가입',
+                      onPressed: () => UserService().postSignup(
+                        email: controller.emailController.text,
+                        pw: controller.pwController.text,
+                        pw2: controller.pw2Controller.text,
+                        name: controller.nameController.text,
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            ],
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
