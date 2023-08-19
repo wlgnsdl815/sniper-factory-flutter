@@ -38,8 +38,10 @@ class UserService {
       User user = User.fromMap(res.data['record']);
       // log('${user}', name: 'user');
       // log('${res.data['record']}', name: 'res');
-      Get.find<AuthController>().setUser(user);
+      var authController = Get.find<AuthController>();
       Get.find<UploadController>().setAuthor(user.id, user.username);
+      authController.setUser(user);
+      authController.setToken(token);
     } catch (e) {
       throw Exception(e);
     }
@@ -53,7 +55,7 @@ class UserService {
     required String email,
     required String pw,
     required String pw2,
-    required String? name,
+    String? name,
   }) async {
     // 이메일 정규식
     final RegExp regex =
@@ -62,15 +64,13 @@ class UserService {
       try {
         Dio dio = Dio();
         dio.options.baseUrl = ApiRoutes.baseUrl;
-        var res = await dio.post(
-          ApiRoutes.signup,
-          data: {
-            'email': email,
-            'password': pw,
-            'passwordConfirm': pw2,
-            'username': name,
-          },
-        );
+        var res = await dio.post(ApiRoutes.signup, data: {
+          "email": email,
+          "password": pw,
+          "passwordConfirm": pw2,
+          "username": name,
+        });
+        print('회원가입 성공: $res');
       } catch (e) {
         if (e is DioException) {
           print("Dio error: ${e.response?.data}");

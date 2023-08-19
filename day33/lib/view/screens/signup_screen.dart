@@ -1,5 +1,4 @@
 import 'package:day33/controllers/signup_controller.dart';
-import 'package:day33/services/user_service.dart';
 import 'package:day33/styles/colors.dart';
 import 'package:day33/styles/text_styles.dart';
 import 'package:day33/widget/cat_circle_avatar.dart';
@@ -72,15 +71,17 @@ class SignupScreen extends GetView<SignupController> {
                   children: [
                     CustomElevatedButton(
                         title: '회원가입',
-                        onPressed: () {
+                        onPressed: () async {
                           if (_formKey.currentState!.validate()) {
-                            UserService().postSignup(
+                            await controller.signUp(
                               email: controller.emailController.text,
                               pw: controller.pwController.text,
                               pw2: controller.pw2Controller.text,
                               name: controller.nameController.text,
                             );
                           }
+                          // Get.snackbar('회원 가입완료!', '비밀을 작성해보세요!');
+                          // Get.toNamed(ScreenRoutes.login);
                         }),
                   ],
                 ),

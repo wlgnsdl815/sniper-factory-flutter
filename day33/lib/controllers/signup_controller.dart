@@ -8,8 +8,13 @@ class SignupController extends GetxController {
   TextEditingController pw2Controller = TextEditingController();
   TextEditingController nameController = TextEditingController();
 
-  signUp(String email, String pw, String pw2, String name) {
-    UserService().postSignup(
+  signUp({
+    required String email,
+    required String pw,
+    required String pw2,
+    String? name,
+  }) async {
+    await UserService().postSignup(
       email: emailController.text,
       pw: pwController.text,
       pw2: pw2Controller.text,

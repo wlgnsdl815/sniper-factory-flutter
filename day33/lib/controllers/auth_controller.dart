@@ -6,11 +6,19 @@ import 'package:get/get.dart';
 
 class AuthController extends GetxController {
   Rxn<User> _user = Rxn();
+  Rxn _token = Rxn();
 
   get user => _user;
 
+  get token => _token;
+
   setUser(User user) {
     _user(user);
+  }
+
+  setToken(String token) {
+    _token(token);
+    print(_token);
   }
 
   _handleAuthChanged(User? user) {

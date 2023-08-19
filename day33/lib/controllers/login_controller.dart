@@ -7,7 +7,19 @@ class LoginController extends GetxController {
       TextEditingController(text: 'test2@kkk.kkk');
   TextEditingController pwController = TextEditingController(text: 'qwer12345');
 
+  RxBool _checked = false.obs;
+
+  get value => _checked.value;
+
+  setValue() {}
+
+  var authController = Get.find<AuthController>();
   login(String id, String pw) {
-    Get.find<AuthController>().login(id, pw);
+    authController.login(id, pw);
+    // Get.find<AuthController>().login(id, pw);
+  }
+
+  onCheckBoxPressed() {
+    _checked.value = !_checked.value;
   }
 }

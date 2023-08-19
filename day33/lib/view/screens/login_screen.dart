@@ -1,4 +1,5 @@
 import 'package:day33/controllers/login_controller.dart';
+import 'package:day33/styles/colors.dart';
 import 'package:day33/styles/text_styles.dart';
 import 'package:day33/utils/screen_routes.dart';
 import 'package:day33/widget/cat_circle_avatar.dart';
@@ -45,7 +46,21 @@ class LoginScreen extends GetView<LoginController> {
                   isEmail: false,
                   isIdPw: true,
                 ),
-                SizedBox(height: 20),
+                Row(
+                  children: [
+                    Obx(
+                      () => Checkbox(
+                        value: controller.value,
+                        onChanged: (_) => controller.onCheckBoxPressed(),
+                        activeColor: textColor,
+                      ),
+                    ),
+                    Text(
+                      '로그인정보 저장',
+                      style: CustomTextStyle.content,
+                    )
+                  ],
+                ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
