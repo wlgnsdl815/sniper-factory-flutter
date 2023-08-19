@@ -5,8 +5,8 @@ import 'package:day33/utils/screen_routes.dart';
 import 'package:get/get.dart';
 
 class AuthController extends GetxController {
-  Rxn<User> _user = Rxn();
-  Rxn _token = Rxn();
+  final Rxn<User> _user = Rxn();
+  final Rxn _token = Rxn();
 
   get user => _user;
 
@@ -39,12 +39,15 @@ class AuthController extends GetxController {
   }
 
   logout() {
-    Get.find<LoginController>().idController.clear();
-    Get.find<LoginController>().pwController.clear();
+    var loginController = Get.find<LoginController>();
+    loginController.idController.clear();
+    loginController.pwController.clear();
+    loginController.onCheckBoxPressed();
     _user.value = null;
-    print(_user);
     Get.snackbar('Logout 되었습니다.', '다음에 또 봬요!');
   }
+
+  checkToken() {}
 
   @override
   void onInit() {

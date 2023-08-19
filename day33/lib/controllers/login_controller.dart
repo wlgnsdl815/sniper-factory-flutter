@@ -11,8 +11,6 @@ class LoginController extends GetxController {
 
   get value => _checked.value;
 
-  setValue() {}
-
   var authController = Get.find<AuthController>();
   login(String id, String pw) {
     authController.login(id, pw);
@@ -21,5 +19,6 @@ class LoginController extends GetxController {
 
   onCheckBoxPressed() {
     _checked.value = !_checked.value;
+    print(_checked.value);
   }
 }

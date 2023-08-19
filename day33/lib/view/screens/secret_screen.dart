@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables
 import 'package:day33/controllers/secret_controller.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -10,6 +11,7 @@ class SecretScreen extends GetView<SecretController> {
 
   @override
   Widget build(BuildContext context) {
+    controller.getSecret();
     TextStyle _textStyle = TextStyle(
       color: Colors.white,
       fontSize: 24.0,

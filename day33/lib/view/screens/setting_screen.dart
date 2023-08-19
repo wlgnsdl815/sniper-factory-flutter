@@ -12,6 +12,7 @@ class SettingScreen extends GetView<SettingController> {
   @override
   Widget build(BuildContext context) {
     var user = Get.find<AuthController>().user.value;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -34,7 +35,7 @@ class SettingScreen extends GetView<SettingController> {
                   ),
                   child: ListTile(
                     title: Text(
-                      user.username,
+                      user?.username ?? '익명',
                       style: CustomTextStyle.title,
                     ),
                     subtitle: Text(
@@ -44,7 +45,7 @@ class SettingScreen extends GetView<SettingController> {
                     trailing: CircleAvatar(
                       backgroundColor: Colors.grey.shade200,
                       child: Text(
-                        user.username[0],
+                        user?.username[0] ?? '',
                         style: CustomTextStyle.content,
                       ),
                     ),

@@ -1,3 +1,4 @@
+import 'package:day33/services/secret_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -9,5 +10,9 @@ class SecretController extends GetxController {
 
   setList(List list) {
     _list(list);
+  }
+
+  getSecret() {
+    SecretService().getSecretList();
   }
 }

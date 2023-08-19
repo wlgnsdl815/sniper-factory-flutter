@@ -1,11 +1,15 @@
 import 'package:day33/controllers/auth_controller.dart';
+import 'package:day33/controllers/login_controller.dart';
 import 'package:day33/controllers/upload_controller.dart';
 import 'package:day33/models/user_model.dart';
 import 'package:day33/utils/api_routes.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class UserService {
+  var authController = Get.find<AuthController>();
+
   getUserList() async {
     try {
       Dio dio = Dio();
@@ -24,6 +28,7 @@ class UserService {
   // - identity (String - required)
   // - password (String -required, 9글자 이상)
   postLogin({required String id, required String pw}) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
     try {
       Dio dio = Dio();
       dio.options.baseUrl = ApiRoutes.baseUrl;
@@ -34,11 +39,13 @@ class UserService {
           'password': pw,
         },
       );
+
       String token = res.data['token'];
+      prefs.setString('token', token);
       User user = User.fromMap(res.data['record']);
       // log('${user}', name: 'user');
       // log('${res.data['record']}', name: 'res');
-      var authController = Get.find<AuthController>();
+      var loginController = Get.find<LoginController>();
       Get.find<UploadController>().setAuthor(user.id, user.username);
       authController.setUser(user);
       authController.setToken(token);
@@ -79,5 +86,27 @@ class UserService {
       }
     }
     return;
+  }
+
+  postRefresh() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('token');
+    try {
+      Dio dio = Dio();
+      dio.options.baseUrl = ApiRoutes.baseUrl;
+      var resp = await dio.post(
+        ApiRoutes.refresh,
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+        ),
+      );
+      var user = User.fromMap(resp.data['record']);
+      authController.setUser(user);
+      print('refresh 성공! $token');
+    } catch (e) {
+      Exception(e);
+    }
   }
 }
