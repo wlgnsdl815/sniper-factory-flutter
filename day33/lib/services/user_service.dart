@@ -9,6 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class UserService {
   var authController = Get.find<AuthController>();
+  var loginController = Get.find<LoginController>();
 
   getUserList() async {
     try {
@@ -18,7 +19,6 @@ class UserService {
       if (response.statusCode == 200) {
         List dataList = response.data['items'];
         List<User> userList = dataList.map((e) => User.fromMap(e)).toList();
-        // log('$userList', name: 'userList');
       }
     } catch (e) {
       throw Exception(e);
@@ -41,14 +41,17 @@ class UserService {
       );
 
       String token = res.data['token'];
-      prefs.setString('token', token);
+
+      if (loginController.isChecked) {
+        prefs.setString('token', token);
+        authController.setToken(token);
+      }
       User user = User.fromMap(res.data['record']);
       // log('${user}', name: 'user');
       // log('${res.data['record']}', name: 'res');
-      var loginController = Get.find<LoginController>();
+
       Get.find<UploadController>().setAuthor(user.id, user.username);
       authController.setUser(user);
-      authController.setToken(token);
     } catch (e) {
       throw Exception(e);
     }

@@ -1,4 +1,6 @@
 import 'package:day33/controllers/upload_controller.dart';
+import 'package:day33/styles/colors.dart';
+import 'package:day33/styles/text_styles.dart';
 import 'package:day33/utils/screen_routes.dart';
 import 'package:day33/widget/custom_elevated_button.dart';
 import 'package:day33/widget/custom_text_field.dart';
@@ -49,6 +51,21 @@ class UploadScreen extends GetView<UploadController> {
                       Get.snackbar('비밀이 업로드 되었습니다!', '어서 확인해보세요!');
                       Get.toNamed(ScreenRoutes.home);
                     },
+                  ),
+                  Row(
+                    children: [
+                      Obx(
+                        () => Checkbox(
+                          value: controller.isChecked.value,
+                          onChanged: (_) => controller.onCheckBoxTap(),
+                          activeColor: textColor,
+                        ),
+                      ),
+                      Text(
+                        '내 이름 공개하기',
+                        style: CustomTextStyle.content,
+                      ),
+                    ],
                   ),
                 ],
               ),

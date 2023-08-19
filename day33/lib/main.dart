@@ -4,7 +4,6 @@ import 'package:day33/controllers/secret_controller.dart';
 import 'package:day33/controllers/setting_controller.dart';
 import 'package:day33/controllers/signup_controller.dart';
 import 'package:day33/controllers/upload_controller.dart';
-import 'package:day33/services/user_service.dart';
 import 'package:day33/styles/colors.dart';
 import 'package:day33/utils/app_screens.dart';
 import 'package:day33/utils/screen_routes.dart';
@@ -21,12 +20,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // UserService().getUserList();
-    UserService().postRefresh();
+    // UserService().postRefresh();
 
     return GetMaterialApp(
       initialBinding: BindingsBuilder(() {
         Get.put(AuthController());
-        Get.lazyPut(() => LoginController());
+
+        Get.lazyPut(() => LoginController(), fenix: true);
         Get.lazyPut(() => SignupController(), fenix: true);
         Get.lazyPut(() => SecretController(), fenix: true);
         Get.lazyPut(() => UploadController(), fenix: true);

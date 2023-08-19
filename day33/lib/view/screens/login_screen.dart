@@ -50,7 +50,7 @@ class LoginScreen extends GetView<LoginController> {
                   children: [
                     Obx(
                       () => Checkbox(
-                        value: controller.value,
+                        value: controller.isChecked,
                         onChanged: (_) => controller.onCheckBoxPressed(),
                         activeColor: textColor,
                       ),

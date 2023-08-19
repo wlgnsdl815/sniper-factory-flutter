@@ -6,10 +6,13 @@ class UploadController extends GetxController {
   TextEditingController secretController = TextEditingController();
   RxString _author = ''.obs;
   RxString _authorName = ''.obs;
+  RxBool isChecked = false.obs;
 
   setAuthor(String author, String authorName) {
     _author = author.obs;
     _authorName = authorName.obs;
+
+    return;
   }
 
   upload() async {
@@ -20,5 +23,9 @@ class UploadController extends GetxController {
     );
     SecretService().getSecretList();
     secretController.clear();
+  }
+
+  onCheckBoxTap() {
+    isChecked.value = !isChecked.value;
   }
 }
