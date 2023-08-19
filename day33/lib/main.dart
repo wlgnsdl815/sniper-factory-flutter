@@ -19,9 +19,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // UserService().getUserList();
-    // UserService().postRefresh();
-
     return GetMaterialApp(
       initialBinding: BindingsBuilder(() {
         Get.put(AuthController());

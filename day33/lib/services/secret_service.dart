@@ -1,14 +1,13 @@
 import 'package:day33/controllers/secret_controller.dart';
 import 'package:day33/models/secret_model.dart';
+import 'package:day33/services/custom_dio.dart';
 import 'package:day33/utils/api_routes.dart';
-import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 
 class SecretService {
+  var dio = CustomDio().dio;
   getSecretList() async {
     try {
-      Dio dio = Dio();
-      dio.options.baseUrl = ApiRoutes.baseUrl;
       var res = await dio.get(ApiRoutes.readSecrets);
       if (res.statusCode == 200) {
         var itemList = List<Map<String, dynamic>>.from(res.data['items']);
@@ -27,9 +26,7 @@ class SecretService {
     required String? authorName,
   }) async {
     try {
-      Dio dio = Dio();
-      dio.options.baseUrl = ApiRoutes.baseUrl;
-      var res = await dio.post(
+      await dio.post(
         ApiRoutes.upload,
         data: {
           'secret': secret,

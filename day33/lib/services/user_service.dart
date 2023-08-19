@@ -2,23 +2,25 @@ import 'package:day33/controllers/auth_controller.dart';
 import 'package:day33/controllers/login_controller.dart';
 import 'package:day33/controllers/upload_controller.dart';
 import 'package:day33/models/user_model.dart';
+import 'package:day33/services/custom_dio.dart';
 import 'package:day33/utils/api_routes.dart';
 import 'package:dio/dio.dart';
+
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UserService {
   var authController = Get.find<AuthController>();
   var loginController = Get.find<LoginController>();
+  // Singleton으로부터 Dio 인스턴스를 가져오기
+  var dio = CustomDio().dio;
 
   getUserList() async {
     try {
-      Dio dio = Dio();
-      dio.options.baseUrl = ApiRoutes.baseUrl;
       var response = await dio.get(ApiRoutes.readUserList);
       if (response.statusCode == 200) {
         List dataList = response.data['items'];
-        List<User> userList = dataList.map((e) => User.fromMap(e)).toList();
+        dataList.map((e) => User.fromMap(e)).toList();
       }
     } catch (e) {
       throw Exception(e);
@@ -30,8 +32,6 @@ class UserService {
   postLogin({required String id, required String pw}) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     try {
-      Dio dio = Dio();
-      dio.options.baseUrl = ApiRoutes.baseUrl;
       var res = await dio.post(
         ApiRoutes.login,
         data: {
@@ -72,8 +72,6 @@ class UserService {
         RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$');
     if (regex.hasMatch(email) && pw.length >= 9 && pw == pw2) {
       try {
-        Dio dio = Dio();
-        dio.options.baseUrl = ApiRoutes.baseUrl;
         var res = await dio.post(ApiRoutes.signup, data: {
           "email": email,
           "password": pw,
@@ -95,8 +93,6 @@ class UserService {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('token');
     try {
-      Dio dio = Dio();
-      dio.options.baseUrl = ApiRoutes.baseUrl;
       var resp = await dio.post(
         ApiRoutes.refresh,
         options: Options(
@@ -109,7 +105,7 @@ class UserService {
       authController.setUser(user);
       print('refresh 성공! $token');
     } catch (e) {
-      Exception(e);
+      throw Exception(e);
     }
   }
 }
