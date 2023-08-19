@@ -56,7 +56,7 @@ class UploadScreen extends GetView<UploadController> {
                     children: [
                       Obx(
                         () => Checkbox(
-                          value: controller.isChecked.value,
+                          value: controller.isChecked,
                           onChanged: (_) => controller.onCheckBoxTap(),
                           activeColor: textColor,
                         ),
