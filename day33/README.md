@@ -140,3 +140,4 @@
 
 ## 🧑‍💻 결과
 
+![Alt text](<Simulator Screen Recording - iPhone 14 Pro Max - 2023-08-20 at 00.19.19.gif>)
