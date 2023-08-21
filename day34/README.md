@@ -134,3 +134,16 @@ trailing의 IconButton을 클릭하면 해당 포스트의 좋아요 수가 +1�
     
     
     - FieldValue를 사용하여 해결할 것
+
+## 🧑‍💻 결과
+
+- 버튼을 누르기 전
+![Alt text](<스크린샷 2023-08-22 오전 3.10.10.png>)
+
+
+- 버튼을 다섯번 누른 후
+![Alt text](<스크린샷 2023-08-22 오전 3.09.01.png>)
+
+- 동작 영상
+
+![Alt text](<Simulator Screen Recording - iPhone 14 Pro Max - 2023-08-22 at 03.10.17.gif>)
