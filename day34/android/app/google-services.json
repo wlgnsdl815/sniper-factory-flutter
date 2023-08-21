@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "551782986718",
+    "project_id": "sfac-day34-assignment",
+    "storage_bucket": "sfac-day34-assignment.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:551782986718:android:a32d0e1632e7141822a34f",
+        "android_client_info": {
+          "package_name": "com.example.day34"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "551782986718-4rv3b0bnqscf6lr5g01p261a6mup2h13.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZTc7xUYEkGzv1og5CrfpGF-T7j7zKuu8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "551782986718-4rv3b0bnqscf6lr5g01p261a6mup2h13.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
