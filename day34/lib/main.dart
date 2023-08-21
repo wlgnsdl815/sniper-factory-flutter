@@ -1,13 +1,6 @@
-import 'package:day34/firebase_options.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-void main() async {
-  // 비동기 함수가 있으면 실행해야하는 함수
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+void main() {
   runApp(const MyApp());
 }
 
