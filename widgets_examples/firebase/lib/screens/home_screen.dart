@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:day34/screens/login_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -10,6 +11,20 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    FirebaseAuth.instance.authStateChanges().listen((user) {
+      if (user != null) {
+        print('회원가입 됐거나 유저가 들어왔다');
+        return;
+      }
+      print('회원가입이나 로그인이 필요하다');
+    });
+  }
+
   var instance = FirebaseFirestore.instance;
   List items = [];
 

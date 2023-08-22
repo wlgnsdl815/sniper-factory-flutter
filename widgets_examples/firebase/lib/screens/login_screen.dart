@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -10,6 +11,20 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  _handleLoginButton() async {
+    var res = FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: 'test@gmail.com', password: '12341234');
+    print(res);
+  }
+
+  _handleSignUpButton() {
+    print('회원가입 버튼 눌려짐');
+    FirebaseAuth.instance.createUserWithEmailAndPassword(
+      email: 'test@gmail.com',
+      password: '12341234',
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,13 +48,24 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             SizedBox(height: 10),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: _handleLoginButton,
               child: Text('로그인하기'),
             ),
             TextButton(
-              onPressed: () {},
+              onPressed: _handleSignUpButton,
               child: Text('회원가입하기'),
             ),
+            IconButton(
+              onPressed: () {},
+              icon: Icon(
+                Icons.g_mobiledata,
+              ),
+            ),
+            TextButton(
+                onPressed: () {
+                  FirebaseAuth.instance.signOut();
+                },
+                child: Text('로그아웃'))
           ],
         ),
       ),
