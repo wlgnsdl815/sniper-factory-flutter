@@ -1,4 +1,5 @@
 import 'package:day35/controllers/auth_controller.dart';
+import 'package:day35/controllers/home_controller.dart';
 import 'package:day35/controllers/login_controller.dart';
 import 'package:day35/firebase_options.dart';
 import 'package:day35/utils/screens.dart';
@@ -24,6 +25,7 @@ class MyApp extends StatelessWidget {
       initialBinding: BindingsBuilder(() {
         Get.put(AuthController());
         Get.lazyPut(() => LoginController(), fenix: true);
+        Get.lazyPut(() => HomeController());
       }),
       getPages: Screens.screens,
       theme: ThemeData(useMaterial3: true),

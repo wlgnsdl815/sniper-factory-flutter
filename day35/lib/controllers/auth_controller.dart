@@ -1,9 +1,21 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:day35/models/profile_model.dart';
 import 'package:day35/utils/routes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthController extends GetxController {
+  Rxn<User> user = Rxn<User>();
+  Rxn<Profile> profile = Rxn<Profile>();
+
+  fetchProfile(String uid) async {
+    var res =
+        await FirebaseFirestore.instance.collection('profile').doc(uid).get();
+    var data = res.data()!;
+    return profile(Profile.fromMap(data));
+  }
+
   handleLogin(String email, String pw) async {
     var res = await FirebaseAuth.instance.signInWithEmailAndPassword(
       email: email,
@@ -50,6 +62,7 @@ class AuthController extends GetxController {
   void onInit() {
     FirebaseAuth.instance.authStateChanges().listen((event) {
       super.onInit();
+      user(event);
       if (event != null) {
         if (Get.currentRoute != Routes.home) {
           Get.offAllNamed(Routes.home);
@@ -62,5 +75,12 @@ class AuthController extends GetxController {
       }
       print('로그인이나 회원가입이 필요합니다');
     });
+  }
+
+  checkEmailVerification() {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      return user.emailVerified;
+    }
   }
 }
