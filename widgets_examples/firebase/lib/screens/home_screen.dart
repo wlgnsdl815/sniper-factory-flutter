@@ -18,7 +18,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
     FirebaseAuth.instance.authStateChanges().listen((user) {
       if (user != null) {
+        print(user.email);
         print('회원가입 됐거나 유저가 들어왔다');
+
         return;
       }
       print('회원가입이나 로그인이 필요하다');
