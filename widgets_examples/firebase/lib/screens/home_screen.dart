@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:day34/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -113,6 +114,18 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             if (items.isNotEmpty)
               ...items.map((e) => Text(e['title'])).toList(),
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => LoginScreen(),
+                  ),
+                );
+              },
+              child: Text('로그인 화면으로 이동'),
+            ),
           ],
         ),
       ),
