@@ -1,3 +1,4 @@
+import 'package:day35/controllers/auth_controller.dart';
 import 'package:day35/firebase_options.dart';
 import 'package:day35/utils/screens.dart';
 import 'package:day35/view/screens/login_screen.dart';
@@ -19,9 +20,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      initialBinding: BindingsBuilder(() {
+        Get.put(AuthController());
+      }),
       getPages: Screens.screens,
       theme: ThemeData(useMaterial3: true),
-      home: LoginScreen(),
+      initialRoute: LoginScreen.route,
     );
   }
 }
