@@ -42,9 +42,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            // Text(
-            //   orderList.isEmpty ? '주문한 메뉴가 없습니다' : '$orderList',
-            // ),
             if (orderList.isNotEmpty)
               SizedBox(
                 height: 40,
